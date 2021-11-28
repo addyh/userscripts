@@ -1,16 +1,21 @@
 // ==UserScript==
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
-// @namespace    bradenscode
-// @version      1.0.9.2
-// @copyright    2017, Braden Best
+// @namespace    addyh
+// @version      1.0.9.2.001
+// @copyright    2017 Braden Best, 2021 addyh
 // @run-at       document-end
-// @author       Braden Best
+// @author       addyh
 // @grant        none
 //
 // @match        *://*.youtube.com/*
 // @match        *://*.vimeo.com/*
+// @match        *://*.yewtu.be/*
 // ==/UserScript==
+
+// Original Source:
+// https://greasyfork.org/en/scripts/30506-video-speed-buttons
+// https://gitlab.com/bradenbest/video-speed-buttons
 
 // warning: vimeo support is broken. A fix will be added in a future patch
 
@@ -20,23 +25,32 @@ function video_speed_buttons(anchor, video_el){
     if(!anchor || !video_el)
         return null;
 
+    let video_playback_speed = getCookie("video_playback_speed");
+    if(!video_playback_speed) {
+        video_playback_speed = 3;
+    }
+
     const COLOR_SELECTED = "#FF5500",
         COLOR_NORMAL = "grey",
-        BUTTON_SIZE = "120%",
-        DEFAULT_SPEED = 1.0,
-        LABEL_TEXT = "Video Speed: ",
+        BUTTON_SIZE = "11px",
+        DEFAULT_SPEED = video_playback_speed,
+        LABEL_TEXT = "",
         ALLOW_EXTERNAL_ACCESS = false;
 
     const BUTTON_TEMPLATES = [
         ["25%",    0.25],
         ["50%",    0.5],
         ["Normal", 1],
-        ["1.5x",   1.5],
-        ["2x",     2],
-        ["3x",     3],
-        ["4x",     4],
-        ["8x",     8],
-        ["16x",    16]
+        ["1.50x",  1.5],
+        ["2.00x",  2],
+        ["2.25x",  2.25],
+        ["2.50x",  2.5],
+        ["2.75x",  2.75],
+        ["3.00x",  3],
+        ["3.25x",  3.25],
+        ["3.50x",  3.5],
+        ["3.75x",  3.75],
+        ["4.00x",  4]
     ];
 
     const buttons = {
@@ -105,6 +119,8 @@ function video_speed_buttons(anchor, video_el){
         div.style.borderBottom = "1px solid #ccc";
         div.style.marginBottom = "10px";
         div.style.paddingBottom = "10px";
+        div.style.textAlign = "center";
+        div.style.width = "100%";
         div.appendChild(SpeedButtonLabel(LABEL_TEXT));
 
         BUTTON_TEMPLATES.forEach(function(button){
@@ -167,10 +183,13 @@ function video_speed_buttons(anchor, video_el){
     }
 
     function setPlaybackRate(el, rate){
-        if(el)
+        if(el) {
             el.playbackRate = rate;
-        else
+            setCookie("video_playback_speed", rate, "365");
+        }
+        else {
             logvsb("video_speed_buttons::setPlaybackRate", "video element is null or undefined", 1);
+        }
     }
 
     function SpeedButtonLabel(text){
@@ -249,6 +268,28 @@ function video_speed_buttons(anchor, video_el){
         callback(ev);
     }
 
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if(c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
     setPlaybackRate(video_el, DEFAULT_SPEED);
     anchor.insertBefore(container, anchor.firstChild);
     document.body.addEventListener("keydown", ev_keyboard);
@@ -280,8 +321,11 @@ const loader_data = {
         "div#watch-header",
         "div#watch7-headline",
         "div#watch-headline-title",
+        "ytm-standalone-badge-supported-renderer.top-standalone-badge",
         // Vimeo
         ".clip_info-wrapper",
+        // Yewtu.be
+        "div#player-container + div.h-box",
     ],
 
     css_div: [
@@ -308,6 +352,12 @@ function logvsb(where, msg, lvl = 0){
 }
 
 function loader_loop(){
+
+    mobile_container = document.querySelector('div.slim-video-metadata-information-standalone-badge');
+    if(mobile_container) {
+        mobile_container.style.padding = "10px 0 0 0";
+    }
+
     let vsbc = () => document.querySelector(".vsb-container");
     let candidate;
     let default_candidate;
@@ -345,7 +395,27 @@ function loader_loop(){
         window.vsb = vsb_handle;
 }
 
-setInterval(function(){
-    if(document.readyState === "complete")
-        setTimeout(loader_loop, 1000);
-}, 1000); // Blame YouTube for this
+// setInterval(function(){
+//     if(document.readyState === "complete")
+//         setTimeout(loader_loop, 10);
+// }, 1000); // Blame YouTube for this
+
+let start = window.setInterval(function(){
+    if(document.readyState === "complete") {
+        window.clearInterval(start);
+        loader_loop();
+    }
+}, 10);
+
+let mutationObserver = new MutationObserver(function() {
+    loader_loop();
+});
+
+mutationObserver.observe(document.documentElement, {
+    attributes: true,
+    characterData: true,
+    childList: true,
+    subtree: true,
+    attributeOldValue: true,
+    characterDataOldValue: true
+});
