@@ -1,0 +1,12 @@
+/*
+ * Firefox userstyles customizations
+ * ~/.mozilla/firefox/release/chrome/userContent.css
+ *
+ */
+
+/* Remove Payment Warning on Github */
+@-moz-document domain('github.com') {
+	header.Header.js-details-container.Details + .flash.flash-full.js-notice.flash-warn {
+		display: none;
+	}
+}

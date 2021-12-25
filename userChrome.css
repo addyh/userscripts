@@ -1,0 +1,36 @@
+/*
+ * Firefox window customizations
+ * ~/.mozilla/firefox/release/chrome/userChrome.css
+ *
+ * Update these settings in about:config for this to work:
+ *  - toolkit.legacyUserProfileCustomizations.stylesheets true
+ *  - browser.tabs.tabMinWidth 0
+ */
+
+/* Make Infinite Tabs */
+.tabbrowser-tab {
+	min-width: 0 !important;
+}
+.tab-content {
+	overflow: hidden !important;
+}
+
+/* Remove top-left window dragging area */
+.titlebar-spacer[type="pre-tabs"] {
+	display: none !important;
+	width: 0px !important;
+	max-width: 0px !important;
+}
+
+/* Lower bookmark menu font size */
+toolbarbutton.bookmark-item {
+	font-size:10px !important;
+}
+
+/* Tighten up drop-down/context/popup menu spacing */
+menupopup > menuitem, menupopup > menu {
+	padding-block: 2px !important;
+}
+:root {
+	--arrowpanel-menuitem-padding: 2px 8px !important;
+}
