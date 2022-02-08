@@ -9,7 +9,6 @@
 // @grant        none
 //
 // @match        *://*.youtube.com/*
-// @match        *://*.yewtu.be/*
 // ==/UserScript==
 
 function loader_loop(){
