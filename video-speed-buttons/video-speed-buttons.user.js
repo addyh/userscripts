@@ -2,7 +2,7 @@
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
 // @namespace    addyh
-// @version      1.0.9.2.001
+// @version      1.0.9.2.002
 // @copyright    2017 Braden Best, 2021 addyh
 // @run-at       document-end
 // @author       addyh
@@ -22,11 +22,11 @@
 // To add a new site: add a @match above, and modify loader_data.container_candidates near the bottom
 
 function video_speed_buttons(anchor, video_el){
-    if(!anchor || !video_el)
+    if (!anchor || !video_el)
         return null;
 
     let video_playback_speed = getCookie("video_playback_speed");
-    if(!video_playback_speed) {
+    if (!video_playback_speed) {
         video_playback_speed = 3;
     }
 
@@ -61,7 +61,7 @@ function video_speed_buttons(anchor, video_el){
 
     const keyboard_controls = [
         ["-", "Speed Down", function(ev){
-            if(is_comment_box(ev.target))
+            if (is_comment_box(ev.target))
                 return false;
 
             (buttons.selected || buttons.head)
@@ -70,7 +70,7 @@ function video_speed_buttons(anchor, video_el){
                 .dispatchEvent(new MouseEvent("click"));
         }],
         ["+", "Speed Up", function(ev){
-            if(is_comment_box(ev.target))
+            if (is_comment_box(ev.target))
                 return false;
 
             (buttons.selected || buttons.head)
@@ -82,16 +82,16 @@ function video_speed_buttons(anchor, video_el){
             let selbtn = buttons.head;
             let result = null;
 
-            if(is_comment_box(ev.target))
+            if (is_comment_box(ev.target))
                 return false;
 
             while(selbtn !== null && result === null)
-                if(selbtn.speed === DEFAULT_SPEED)
+                if (selbtn.speed === DEFAULT_SPEED)
                     result = selbtn;
                 else
                     selbtn = selbtn.next;
 
-            if(result === null)
+            if (result === null)
                 result = buttons.head;
 
             result.el.dispatchEvent(new MouseEvent("click"));
@@ -99,7 +99,7 @@ function video_speed_buttons(anchor, video_el){
         ["?", "Show Help", function(ev){
             let infobox;
 
-            if(is_comment_box(ev.target))
+            if (is_comment_box(ev.target))
                 return false;
 
             (infobox = Infobox(container))
@@ -126,17 +126,17 @@ function video_speed_buttons(anchor, video_el){
         BUTTON_TEMPLATES.forEach(function(button){
             let speedButton = SpeedButton(...button, div);
 
-            if(buttons.head === null)
+            if (buttons.head === null)
                 buttons.head = speedButton;
 
-            if(prev_node !== null){
+            if (prev_node !== null){
                 speedButton.prev = prev_node;
                 prev_node.next = speedButton;
             }
 
             prev_node = speedButton;
 
-            if(speedButton.speed == DEFAULT_SPEED)
+            if (speedButton.speed == DEFAULT_SPEED)
                 speedButton.select();
         });
 
@@ -150,7 +150,7 @@ function video_speed_buttons(anchor, video_el){
         ].map(c => document.querySelector(c))
          .find(el => el !== null);
 
-        if(candidate === null){
+        if (candidate === null){
             logvsb("video_speed_buttons::is_comment_box", "no candidate for comment box. Assuming false.");
             return 0;
         }
@@ -183,7 +183,7 @@ function video_speed_buttons(anchor, video_el){
     }
 
     function setPlaybackRate(el, rate){
-        if(el) {
+        if (el) {
             el.playbackRate = rate;
             setCookie("video_playback_speed", rate, "365");
         }
@@ -218,7 +218,7 @@ function video_speed_buttons(anchor, video_el){
         parent.appendChild(el);
 
         function select(){
-            if(buttons.last !== null)
+            if (buttons.last !== null)
                 buttons.last.el.style.color = COLOR_NORMAL;
 
             buttons.last = self;
@@ -227,14 +227,14 @@ function video_speed_buttons(anchor, video_el){
         }
 
         function getprev(){
-            if(self.prev === null)
+            if (self.prev === null)
                 return self;
 
             return buttons.selected = self.prev;
         }
 
         function getnext(){
-            if(self.next === null)
+            if (self.next === null)
                 return self;
 
             return buttons.selected = self.next;
@@ -283,7 +283,7 @@ function video_speed_buttons(anchor, video_el){
             while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
-            if(c.indexOf(name) == 0) {
+            if (c.indexOf(name) == 0) {
                 return c.substring(name.length, c.length);
             }
         }
@@ -354,7 +354,7 @@ function logvsb(where, msg, lvl = 0){
 function loader_loop(){
 
     mobile_container = document.querySelector('div.slim-video-metadata-information-standalone-badge');
-    if(mobile_container) {
+    if (mobile_container) {
         mobile_container.style.padding = "10px 0 0 0";
     }
 
@@ -363,7 +363,7 @@ function loader_loop(){
     let default_candidate;
     let vsb_handle;
 
-    if(vsbc() !== null)
+    if (vsbc() !== null)
         return;
 
     candidate = loader_data
@@ -382,7 +382,7 @@ function loader_loop(){
 
     vsb_handle = video_speed_buttons(candidate || default_candidate, document.querySelector("video"));
 
-    if(candidate === null){
+    if (candidate === null){
         logvsb("loader_loop", "no candidates for title section. Defaulting to top of page.");
         document.body.appendChild(default_candidate);
 
@@ -391,17 +391,18 @@ function loader_loop(){
         });
     }
 
-    if(vsb_handle.ALLOW_EXTERNAL_ACCESS)
+    if (vsb_handle && vsb_handle.ALLOW_EXTERNAL_ACCESS) {
         window.vsb = vsb_handle;
+    }
 }
 
 // setInterval(function(){
-//     if(document.readyState === "complete")
+//     if (document.readyState === "complete")
 //         setTimeout(loader_loop, 10);
 // }, 1000); // Blame YouTube for this
 
 let start = window.setInterval(function(){
-    if(document.readyState === "complete") {
+    if (document.readyState === "complete") {
         window.clearInterval(start);
         loader_loop();
     }
