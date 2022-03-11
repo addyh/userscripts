@@ -10,3 +10,22 @@
 		display: none;
 	}
 }
+
+/* Stack overflow, etc. */
+@-moz-document
+	domain('stackoverflow.com'),
+	domain('stackexchange.com'),
+	domain('superuser.com'),
+	domain('mathoverflow.com'),
+	domain('serverfault.com'),
+	domain('askubuntu.com'),
+	domain('stackapps.com')
+{
+	#left-sidebar,
+	#sidebar .s-sidebarwidget__yellow,
+	#hot-network-questions,
+	.js-consent-banner {
+		display: none;
+	}
+	
+}
