@@ -29,3 +29,9 @@
 	}
 	
 }
+
+/* Consent Banners */
+.js-consent-banner,
+#onetrust-consent-sdk {
+	display: none;
+}
