@@ -7,11 +7,23 @@
  *  - browser.tabs.tabMinWidth 0
  */
 
+/*
+#nav-bar - Nav/Address Bar
+#titlebar - Title/Tabs Bar
+#PersonalToolbar - Bookmarks Bar
+#navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
+*/
+
+/* Remove Title and Nav Bar and Bookmarks Bar*/
+/* #navigator-toolbox {
+	visibility: collapse;
+} */
+
 /* Make Infinite Tabs */
 .tabbrowser-tab {
 	min-width: 0 !important;
 }
-.tab-content {
+.tab-content:not([pinned]) {
 	overflow: hidden !important;
 }
 
