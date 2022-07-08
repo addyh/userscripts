@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Remove YouTube Ads
 // @description  Removes ads on youtube
-// @version      1.0.1
+// @version      1.0.2
 // @run-at       document-end
 // @namespace    addyh
 // @copyright    addyh
