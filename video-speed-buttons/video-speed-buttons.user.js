@@ -2,8 +2,8 @@
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
 // @namespace    addyh
-// @version      1.0.9.2.002
-// @copyright    2017 Braden Best, 2021 addyh
+// @version      1.0.9.2.003
+// @copyright    2017 Braden Best, 2021-2022 addyh
 // @run-at       document-end
 // @author       addyh
 // @grant        none
@@ -21,7 +21,7 @@
 
 // To add a new site: add a @match above, and modify loader_data.container_candidates near the bottom
 
-function video_speed_buttons(anchor, video_el){
+function video_speed_buttons(anchor, video_el) {
     if (!anchor || !video_el)
         return null;
 
@@ -60,7 +60,7 @@ function video_speed_buttons(anchor, video_el){
     };
 
     const keyboard_controls = [
-        ["-", "Speed Down", function(ev){
+        ["-", "Speed Down", function(ev) {
             if (is_comment_box(ev.target))
                 return false;
 
@@ -69,7 +69,7 @@ function video_speed_buttons(anchor, video_el){
                 .el
                 .dispatchEvent(new MouseEvent("click"));
         }],
-        ["+", "Speed Up", function(ev){
+        ["+", "Speed Up", function(ev) {
             if (is_comment_box(ev.target))
                 return false;
 
@@ -78,7 +78,7 @@ function video_speed_buttons(anchor, video_el){
                 .el
                 .dispatchEvent(new MouseEvent("click"));
         }],
-        ["*", "Reset Speed", function(ev){
+        ["*", "Reset Speed", function(ev) {
             let selbtn = buttons.head;
             let result = null;
 
@@ -96,7 +96,7 @@ function video_speed_buttons(anchor, video_el){
 
             result.el.dispatchEvent(new MouseEvent("click"));
         }],
-        ["?", "Show Help", function(ev){
+        ["?", "Show Help", function(ev) {
             let infobox;
 
             if (is_comment_box(ev.target))
@@ -105,13 +105,13 @@ function video_speed_buttons(anchor, video_el){
             (infobox = Infobox(container))
                 .log("Keyboard Controls (click to close)<br>");
 
-            keyboard_controls.forEach(function([key, description]){
+            keyboard_controls.forEach(function([key, description]) {
                 infobox.log(`    [${key}]  ${description}<br>`);
             });
         }]
     ];
 
-    const container = (function(){
+    const container = (function() {
         let div = document.createElement("div");
         let prev_node = null;
 
@@ -123,13 +123,13 @@ function video_speed_buttons(anchor, video_el){
         div.style.width = "100%";
         div.appendChild(SpeedButtonLabel(LABEL_TEXT));
 
-        BUTTON_TEMPLATES.forEach(function(button){
+        BUTTON_TEMPLATES.forEach(function(button) {
             let speedButton = SpeedButton(...button, div);
 
             if (buttons.head === null)
                 buttons.head = speedButton;
 
-            if (prev_node !== null){
+            if (prev_node !== null) {
                 speedButton.prev = prev_node;
                 prev_node.next = speedButton;
             }
@@ -143,14 +143,14 @@ function video_speed_buttons(anchor, video_el){
         return div;
     })();
 
-    function is_comment_box(el){
+    function is_comment_box(el) {
         const candidate = [
             ".comment-simplebox-text",
             "textarea"
         ].map(c => document.querySelector(c))
          .find(el => el !== null);
 
-        if (candidate === null){
+        if (candidate === null) {
             logvsb("video_speed_buttons::is_comment_box", "no candidate for comment box. Assuming false.");
             return 0;
         }
@@ -158,7 +158,7 @@ function video_speed_buttons(anchor, video_el){
         return el === candidate;
     }
 
-    function Infobox(parent){
+    function Infobox(parent) {
         let el = document.createElement("pre");
 
         el.style.font = "1em monospace";
@@ -166,13 +166,13 @@ function video_speed_buttons(anchor, video_el){
         el.style.marginTop = "10px";
         el.style.paddingTop = "10px";
 
-        el.addEventListener("click", function(){
+        el.addEventListener("click", function() {
             parent.removeChild(el);
         });
 
         parent.appendChild(el);
 
-        function log(msg){
+        function log(msg) {
             el.innerHTML += msg;
         }
 
@@ -182,7 +182,7 @@ function video_speed_buttons(anchor, video_el){
         };
     }
 
-    function setPlaybackRate(el, rate){
+    function setPlaybackRate(el, rate) {
         if (el) {
             el.playbackRate = rate;
             setCookie("video_playback_speed", rate, "365");
@@ -192,7 +192,7 @@ function video_speed_buttons(anchor, video_el){
         }
     }
 
-    function SpeedButtonLabel(text){
+    function SpeedButtonLabel(text) {
         let el = document.createElement("span");
 
         el.innerHTML = text;
@@ -204,20 +204,20 @@ function video_speed_buttons(anchor, video_el){
         return el;
     }
 
-    function SpeedButton(text, speed, parent){
+    function SpeedButton(text, speed, parent) {
         let el = SpeedButtonLabel(text);
         let self;
 
         el.style.cursor = "pointer";
 
-        el.addEventListener("click", function(){
+        el.addEventListener("click", function() {
             setPlaybackRate(video_el, speed);
             self.select();
         });
 
         parent.appendChild(el);
 
-        function select(){
+        function select() {
             if (buttons.last !== null)
                 buttons.last.el.style.color = COLOR_NORMAL;
 
@@ -226,14 +226,14 @@ function video_speed_buttons(anchor, video_el){
             el.style.color = COLOR_SELECTED;
         }
 
-        function getprev(){
+        function getprev() {
             if (self.prev === null)
                 return self;
 
             return buttons.selected = self.prev;
         }
 
-        function getnext(){
+        function getnext() {
             if (self.next === null)
                 return self;
 
@@ -252,16 +252,16 @@ function video_speed_buttons(anchor, video_el){
         };
     }
 
-    function kill(){
+    function kill() {
         anchor.removeChild(container);
         document.body.removeEventListener("keydown", ev_keyboard);
     }
 
-    function set_video_el(new_video_el){
+    function set_video_el(new_video_el) {
         video_el = new_video_el;
     }
 
-    function ev_keyboard(ev){
+    function ev_keyboard(ev) {
         let match = keyboard_controls.find(([key, unused, callback]) => key === ev.key);
         let callback = (match || {2: ()=>null})[2];
 
@@ -307,7 +307,7 @@ function video_speed_buttons(anchor, video_el){
     };
 }
 
-video_speed_buttons.from_query = function(anchor_q, video_q){
+video_speed_buttons.from_query = function(anchor_q, video_q) {
     return video_speed_buttons(
             document.querySelector(anchor_q),
             document.querySelector(video_q));
@@ -317,11 +317,13 @@ video_speed_buttons.from_query = function(anchor_q, video_q){
 const loader_data = {
     container_candidates: [
         // YouTube
+        "ytm-standalone-badge-supported-renderer.top-standalone-badge",
+        "div#above-the-fold",
         "div#container.ytd-video-primary-info-renderer",
         "div#watch-header",
         "div#watch7-headline",
         "div#watch-headline-title",
-        "ytm-standalone-badge-supported-renderer.top-standalone-badge",
+
         // Vimeo
         ".clip_info-wrapper",
         // Yewtu.be
@@ -345,17 +347,27 @@ const loader_data = {
     ].map(rule => rule.split(/: */))
 };
 
-function logvsb(where, msg, lvl = 0){
+function logvsb(where, msg, lvl = 0) {
     let logf = (["info", "error"])[lvl];
 
     console[logf](`[vsb::${where}] ${msg}`);
 }
 
-function loader_loop(){
+function loader_loop() {
 
-    mobile_container = document.querySelector('div.slim-video-metadata-information-standalone-badge');
-    if (mobile_container) {
+    // Add some padding on mobile
+    if ( mobile_container = document.querySelector('div.slim-video-metadata-information-standalone-badge') ) {
         mobile_container.style.padding = "10px 0 0 0";
+    }
+
+    // Fix page will not scroll
+    if ( fix_scroll = document.querySelector('#player-container-id.sticky-player') ) {
+        fix_scroll.style.position = 'absolute';
+    }
+
+    // Fix Title being covered up by video
+    if ( fix_title = document.querySelector('div.related-chips-slot-wrapper.slot-open') ) {
+        fix_title.style.transform = 'translateY(0)';
     }
 
     let vsbc = () => document.querySelector(".vsb-container");
@@ -363,18 +375,19 @@ function loader_loop(){
     let default_candidate;
     let vsb_handle;
 
-    if (vsbc() !== null)
+    if (vsbc() !== null) {
         return;
+    }
 
     candidate = loader_data
         .container_candidates
         .map(candidate => document.querySelector(candidate))
         .find(candidate => candidate !== null);
 
-    default_candidate = (function(){
+    default_candidate = (function() {
         let el = document.createElement("div");
 
-        loader_data.css_div.forEach(function([name, value]){
+        loader_data.css_div.forEach(function([name, value]) {
             el.style[name] = value; });
 
         return el;
@@ -382,11 +395,11 @@ function loader_loop(){
 
     vsb_handle = video_speed_buttons(candidate || default_candidate, document.querySelector("video"));
 
-    if (candidate === null){
+    if (candidate === null) {
         logvsb("loader_loop", "no candidates for title section. Defaulting to top of page.");
         document.body.appendChild(default_candidate);
 
-        loader_data.css_vsb_container.forEach(function([name, value]){
+        loader_data.css_vsb_container.forEach(function([name, value]) {
             vsbc().style[name] = value;
         });
     }
@@ -396,19 +409,27 @@ function loader_loop(){
     }
 }
 
-// setInterval(function(){
+// setInterval(function() {
 //     if (document.readyState === "complete")
 //         setTimeout(loader_loop, 10);
 // }, 1000); // Blame YouTube for this
 
-let start = window.setInterval(function(){
+// addEventListener('orientationchange', event => {
+//     console.log('orientation changed');
+//     loader_loop();
+// });
+
+// console.log('starting');
+let start = window.setInterval(function() {
     if (document.readyState === "complete") {
+        // console.log('ending start');
         window.clearInterval(start);
         loader_loop();
     }
 }, 10);
 
 let mutationObserver = new MutationObserver(function() {
+    // console.log('mutation');
     loader_loop();
 });
 
