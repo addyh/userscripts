@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         Remove YouTube Ads - Search Page
-// @description  Removes ads on youtube searches
+// @name         Remove YouTube Ads
+// @description  Removes ads on youtube
 // @version      1.0.1
 // @run-at       document-end
 // @namespace    addyh
@@ -17,7 +17,8 @@ function loader_loop(){
     var ads = [
         'ytd-display-ad-renderer',
         'ytd-promoted-sparkles-web-renderer',
-        'ytd-promoted-sparkles-text-search-renderer'
+        'ytm-promoted-sparkles-web-renderer',
+        'ytd-promoted-sparkles-text-search-renderer',
     ];
     for (var ad of ads) {
         var els = document.querySelectorAll(ad);
