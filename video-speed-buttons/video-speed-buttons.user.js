@@ -2,7 +2,7 @@
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
 // @namespace    addyh
-// @version      1.0.9.2.003
+// @version      1.0.9.2.004
 // @copyright    2017 Braden Best, 2021-2022 addyh
 // @run-at       document-end
 // @author       addyh
@@ -19,11 +19,13 @@
 
 // warning: vimeo support is broken. A fix will be added in a future patch
 
-// To add a new site: add a @match above, and modify loader_data.container_candidates near the bottom
+// To add a new site: add a @match above, and modify vsb_loader_data.container_candidates near the bottom
 
 function video_speed_buttons(anchor, video_el) {
-    if (!anchor || !video_el)
+    if (!anchor || !video_el) {
+        // console.log('fail: no anchor or no video_el');
         return null;
+    }
 
     let video_playback_speed = getCookie("video_playback_speed");
     if (!video_playback_speed) {
@@ -136,8 +138,9 @@ function video_speed_buttons(anchor, video_el) {
 
             prev_node = speedButton;
 
-            if (speedButton.speed == DEFAULT_SPEED)
+            if (speedButton.speed == DEFAULT_SPEED) {
                 speedButton.select();
+            }
         });
 
         return div;
@@ -183,6 +186,11 @@ function video_speed_buttons(anchor, video_el) {
     }
 
     function setPlaybackRate(el, rate) {
+
+        // console.log( ' setting playback rate: ' + rate );
+        // console.log('    - el: ');
+        // console.log(el);
+
         if (el) {
             el.playbackRate = rate;
             setCookie("video_playback_speed", rate, "365");
@@ -209,21 +217,26 @@ function video_speed_buttons(anchor, video_el) {
         let self;
 
         el.style.cursor = "pointer";
+        el.setAttribute('myspeed', speed);
 
         el.addEventListener("click", function() {
-            setPlaybackRate(video_el, speed);
+            // setPlaybackRate(video_el, speed);
             self.select();
         });
 
         parent.appendChild(el);
 
         function select() {
-            if (buttons.last !== null)
+            if (buttons.last !== null) {
                 buttons.last.el.style.color = COLOR_NORMAL;
+                buttons.last.el.classList = '';
+            }
 
             buttons.last = self;
             buttons.selected = self;
             el.style.color = COLOR_SELECTED;
+            el.classList = 'me-selected';
+            setPlaybackRate(video_el, speed);
         }
 
         function getprev() {
@@ -314,7 +327,7 @@ video_speed_buttons.from_query = function(anchor_q, video_q) {
 }
 
 // Multi-purpose Loader (defaults to floating on top right)
-const loader_data = {
+const vsb_loader_data = {
     container_candidates: [
         // YouTube
         "ytm-standalone-badge-supported-renderer.top-standalone-badge",
@@ -355,31 +368,25 @@ function logvsb(where, msg, lvl = 0) {
 
 function loader_loop() {
 
-    // Add some padding on mobile
-    if ( mobile_container = document.querySelector('div.slim-video-metadata-information-standalone-badge') ) {
-        mobile_container.style.padding = "10px 0 0 0";
-    }
-
-    // Fix page will not scroll
-    if ( fix_scroll = document.querySelector('#player-container-id.sticky-player') ) {
-        fix_scroll.style.position = 'absolute';
-    }
-
-    // Fix Title being covered up by video
-    if ( fix_title = document.querySelector('div.related-chips-slot-wrapper.slot-open') ) {
-        fix_title.style.transform = 'translateY(0)';
-    }
+    // console.log('loader loop');
 
     let vsbc = () => document.querySelector(".vsb-container");
     let candidate;
     let default_candidate;
     let vsb_handle;
 
-    if (vsbc() !== null) {
+    if ( document.querySelector('video') && document.querySelector('.me-selected') ) {
+        if ( document.querySelector('video').playbackRate != document.querySelector('.me-selected').getAttribute('myspeed') ) {
+            document.querySelector('video').playbackRate = document.querySelector('.me-selected').getAttribute('myspeed') 
+        }
+    }
+
+    if (vsbc()) {
+        // console.log('fail: already loaded');
         return;
     }
 
-    candidate = loader_data
+    candidate = vsb_loader_data
         .container_candidates
         .map(candidate => document.querySelector(candidate))
         .find(candidate => candidate !== null);
@@ -387,7 +394,7 @@ function loader_loop() {
     default_candidate = (function() {
         let el = document.createElement("div");
 
-        loader_data.css_div.forEach(function([name, value]) {
+        vsb_loader_data.css_div.forEach(function([name, value]) {
             el.style[name] = value; });
 
         return el;
@@ -399,7 +406,7 @@ function loader_loop() {
         logvsb("loader_loop", "no candidates for title section. Defaulting to top of page.");
         document.body.appendChild(default_candidate);
 
-        loader_data.css_vsb_container.forEach(function([name, value]) {
+        vsb_loader_data.css_vsb_container.forEach(function([name, value]) {
             vsbc().style[name] = value;
         });
     }
@@ -407,27 +414,88 @@ function loader_loop() {
     if (vsb_handle && vsb_handle.ALLOW_EXTERNAL_ACCESS) {
         window.vsb = vsb_handle;
     }
+
 }
 
-// setInterval(function() {
-//     if (document.readyState === "complete")
-//         setTimeout(loader_loop, 10);
-// }, 1000); // Blame YouTube for this
+// ******************* SCRIPT START *******************
 
+// Add css to page
+var style = document.createElement('style');
+style.innerHTML = `
+/* Mobile padding */
+div.related-chips-slot-wrapper.slot-open {
+    transform: translateY(0);
+}
+/* Fix page will not scroll */
+#player-container-id.sticky-player {
+    position: absolute !important;
+}
+/* Fix Title being covered up by video */
+div.slim-video-metadata-information-standalone-badge {
+    padding: 10px 0 0 0;
+}
+/* Fix floating category chooser  */
+ytm-related-chip-cloud-renderer {
+    position: unset !important;
+    height: auto !important;
+    opacity: 1 !important;
+    transform: unset !important;
+}
+/* Remove "Up Next" text bar */
+.ytm-autonav-bar.cbox {
+    display: none;
+}
+`;
+document.head.append(style);
+
+// Add jquery to page
+var jq = document.createElement('script');
+jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+
+// Fix recommended sidebar
+function starting_loop() {
+    jQuery.noConflict();
+    jQuery('ytm-media-item').attr('use-vertical-layout', 'true');
+}
+
+// Run every second
+setInterval(function() {
+    if (document.readyState === "complete") {
+        setTimeout(loader_loop, 10);
+        setTimeout(starting_loop, 10);
+
+        // Fixes
+        var aaa, bbb, ccc;
+
+        // Fix Category buttons list bar
+        if (bbb = document.querySelector('.related-chips-slot-wrapper')) {
+            bbb.classList='related-chips-slot-wrapper slot-open';
+        }
+        if (ccc = document.getElementsByTagName('ytm-related-chip-cloud-renderer')) {
+            if (ccc[0]) {
+                ccc[0].classList='chips-visible';
+            }
+        }
+    }
+}, 1000);
+
+// Run on orientation change
 // addEventListener('orientationchange', event => {
 //     console.log('orientation changed');
 //     loader_loop();
 // });
 
-// console.log('starting');
+// Run at start
 let start = window.setInterval(function() {
     if (document.readyState === "complete") {
         // console.log('ending start');
-        window.clearInterval(start);
         loader_loop();
+        window.clearInterval(start);
     }
 }, 10);
 
+// Run on document change
 let mutationObserver = new MutationObserver(function() {
     // console.log('mutation');
     loader_loop();
