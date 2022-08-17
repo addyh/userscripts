@@ -8,11 +8,16 @@
  */
 
 /*
-#nav-bar - Nav/Address Bar
 #titlebar - Title/Tabs Bar
+#nav-bar - Nav/Address Bar
 #PersonalToolbar - Bookmarks Bar
 #navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
 */
+
+/* Remove status bar */
+/* #statuspanel-label {
+	display: none;
+} */
 
 /* Remove Title and Nav Bar and Bookmarks Bar*/
 /* #navigator-toolbox {
