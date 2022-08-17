@@ -7,16 +7,16 @@
 UC.showHideBars = {
 	init: function () {
 
+		// #titlebar - Title/Tabs Bar
+		// #nav-bar - Nav/Address Bar
+		// #PersonalToolbar - Bookmarks Bar
+		// #navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
+
 		// document.getElementById('titlebar').style.visibility = 'collapse';
 		// document.getElementById('nav-bar').style.visibility = 'collapse';
 		// document.getElementById('PersonalToolbar').style.visibility = 'collapse';
 
 		document.onkeydown = function(e) {
-
-			// #titlebar - Title/Tabs Bar
-			// #nav-bar - Nav/Address Bar
-			// #PersonalToolbar - Bookmarks Bar
-			// #navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
 
 			if (e.key == 'z' && e.altKey) {
 				var t = document.getElementById('titlebar').style.visibility;
