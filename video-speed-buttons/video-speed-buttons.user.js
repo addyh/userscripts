@@ -119,8 +119,7 @@ function video_speed_buttons(anchor, video_el) {
 
         div.className = "vsb-container";
         div.style.borderBottom = "1px solid #ccc";
-        div.style.marginBottom = "10px";
-        div.style.marginTop = "10px";
+        div.style.paddingTop = "10px";
         div.style.paddingBottom = "10px";
         div.style.textAlign = "center";
         div.style.width = "100%";
@@ -446,6 +445,11 @@ ytm-related-chip-cloud-renderer {
 /* Remove "Up Next" text bar */
 .ytm-autonav-bar.cbox {
     display: none;
+}
+
+.slim-video-metadata-header-modern .slim-video-information-content.slim-video-information-empty-badge,
+.slim-video-metadata-header-modern.slim-video-metadata-header-with-standalone-badge .slim-video-information-content {
+    padding-top: 13px !important;
 }
 `;
 document.head.append(style);
