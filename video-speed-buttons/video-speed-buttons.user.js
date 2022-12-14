@@ -447,6 +447,7 @@ ytm-related-chip-cloud-renderer {
     display: none;
 }
 
+/* Make padding above video title always the same */
 .slim-video-metadata-header-modern .slim-video-information-content.slim-video-information-empty-badge,
 .slim-video-metadata-header-modern.slim-video-metadata-header-with-standalone-badge .slim-video-information-content {
     padding-top: 13px !important;
