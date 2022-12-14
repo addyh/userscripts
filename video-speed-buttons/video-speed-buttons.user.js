@@ -2,7 +2,7 @@
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
 // @namespace    addyh
-// @version      1.0.9.2.004
+// @version      1.0.9.2.005
 // @copyright    2017 Braden Best, 2021-2022 addyh
 // @run-at       document-end
 // @author       addyh
@@ -120,6 +120,7 @@ function video_speed_buttons(anchor, video_el) {
         div.className = "vsb-container";
         div.style.borderBottom = "1px solid #ccc";
         div.style.marginBottom = "10px";
+        div.style.marginTop = "10px";
         div.style.paddingBottom = "10px";
         div.style.textAlign = "center";
         div.style.width = "100%";
@@ -331,6 +332,7 @@ const vsb_loader_data = {
     container_candidates: [
         // YouTube
         "ytm-standalone-badge-supported-renderer.top-standalone-badge",
+        'ytm-slim-video-information-renderer',
         "div#above-the-fold",
         "div#container.ytd-video-primary-info-renderer",
         "div#watch-header",
@@ -377,7 +379,7 @@ function loader_loop() {
 
     if ( document.querySelector('video') && document.querySelector('.me-selected') ) {
         if ( document.querySelector('video').playbackRate != document.querySelector('.me-selected').getAttribute('myspeed') ) {
-            document.querySelector('video').playbackRate = document.querySelector('.me-selected').getAttribute('myspeed') 
+            document.querySelector('video').playbackRate = document.querySelector('.me-selected').getAttribute('myspeed')
         }
     }
 
@@ -432,7 +434,7 @@ div.related-chips-slot-wrapper.slot-open {
 }
 /* Fix Title being covered up by video */
 div.slim-video-metadata-information-standalone-badge {
-    padding: 10px 0 0 0;
+    padding: 0;
 }
 /* Fix floating category chooser  */
 ytm-related-chip-cloud-renderer {
