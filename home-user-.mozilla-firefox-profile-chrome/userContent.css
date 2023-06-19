@@ -6,7 +6,7 @@
 
 /* Remove Payment Warning on Github */
 @-moz-document domain('github.com') {
-	header.Header.js-details-container.Details + .flash.flash-full.js-notice.flash-warn {
+	header ~ .flash.flash-full.js-notice.flash-warn {
 		display: none;
 	}
 }
@@ -21,6 +21,8 @@
 	domain('askubuntu.com'),
 	domain('stackapps.com')
 {
+	#announcement-banner, /* exactly what it sounds like */
+	.js-zone-container.zone-container-main, /* Ads */
 	#left-sidebar,
 	#sidebar .s-sidebarwidget__yellow,
 	#hot-network-questions,
