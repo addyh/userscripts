@@ -1,11 +1,14 @@
 // ==UserScript==
 // @name         Remove YouTube Ads
 // @description  Removes ads on youtube
-// @version      1.0.2
-// @run-at       document-end
-// @namespace    addyh
-// @copyright    addyh
+// @version      1.0.4
 // @author       addyh
+// @copyright    GPLv3
+// @updateURL    https://github.com/addyh/userscripts/raw/master/remove-yt-ads.user.js
+// @downloadURL  https://github.com/addyh/userscripts/raw/master/remove-yt-ads.user.js
+// @supportURL   https://github.com/addyh/userscripts/issues
+// @homepage     https://github.com/addyh/userscripts
+// @run-at       document-end
 // @grant        none
 //
 // @match        *://*.youtube.com/*
