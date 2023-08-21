@@ -1,11 +1,14 @@
 // ==UserScript==
 // @name         Trane Home
 // @description  Fixes login page
-// @version      1.0.0
-// @run-at       document-end
-// @namespace    addyh
-// @copyright    addyh
+// @version      1.0.2
 // @author       addyh
+// @copyright    GPLv3
+// @updateURL    https://github.com/addyh/userscripts/raw/master/trane-home.user.js
+// @downloadURL  https://github.com/addyh/userscripts/raw/master/trane-home.user.js
+// @supportURL   https://github.com/addyh/userscripts/issues
+// @homepage     https://github.com/addyh/userscripts
+// @run-at       document-end
 // @grant        none
 //
 // @match        https://*.tranehome.com/login
