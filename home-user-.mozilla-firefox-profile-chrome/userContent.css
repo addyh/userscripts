@@ -11,7 +11,7 @@
 	}
 }
 
-/* Stack overflow, etc. */
+/* Clean Up All Stack Overflow Sites */
 @-moz-document
 	domain('stackoverflow.com'),
 	domain('stackexchange.com'),
@@ -21,18 +21,20 @@
 	domain('askubuntu.com'),
 	domain('stackapps.com')
 {
-	#announcement-banner, /* exactly what it sounds like */
+	.js-dismissable-hero,                   /* Top Banner */
+	#announcement-banner,                   /* Top Banner */
 	.js-zone-container.zone-container-main, /* Ads */
-	#left-sidebar,
-	#sidebar .s-sidebarwidget__yellow,
-	#hot-network-questions,
-	.js-consent-banner {
+	#left-sidebar,                          /* Left Sidebar */
+	#sidebar .s-sidebarwidget__yellow,      /* Right Sidebar Yellow Boxes */
+	#hot-network-questions,                 /* Right Sidebar - Hot Network Questions */
+	.js-consent-banner                      /* GDPR Popup */
+	{
 		display: none;
 	}
 	
 }
 
-/* Consent Banners */
+/* Consent Banners / GDPR Popups */
 .js-consent-banner,
 #onetrust-consent-sdk {
 	display: none;
