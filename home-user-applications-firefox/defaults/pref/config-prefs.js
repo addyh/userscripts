@@ -1,6 +1,6 @@
 /*
 
-https://github.com/alice0775/userChrome.js/blob/master/92/install_folder/defaults/pref/config-prefs.js
+https://github.com/alice0775/userChrome.js/blob/master/117/install_folder/defaults/pref/config-prefs.js
 
  2019-11-18 23:00
 */
