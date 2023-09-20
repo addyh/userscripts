@@ -21,6 +21,7 @@
 	domain('askubuntu.com'),
 	domain('stackapps.com')
 {
+	.s-popover,                             /* AI powered search popup */
 	.js-dismissable-hero,                   /* Top Banner */
 	#announcement-banner,                   /* Top Banner */
 	.js-zone-container.zone-container-main, /* Ads */
@@ -29,7 +30,7 @@
 	#hot-network-questions,                 /* Right Sidebar - Hot Network Questions */
 	.js-consent-banner                      /* GDPR Popup */
 	{
-		display: none;
+		display: none !important;
 	}
 	
 }
