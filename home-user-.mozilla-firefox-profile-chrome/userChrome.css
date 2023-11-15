@@ -32,6 +32,11 @@
 	overflow: hidden !important;
 }
 
+/* Remove all tab close (x) buttons */
+#TabsToolbar image.tab-close-button.close-icon {
+	display: none;
+}
+
 /* Remove top-left window dragging area */
 .titlebar-spacer[type="pre-tabs"] {
 	display: none !important;
