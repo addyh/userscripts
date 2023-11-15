@@ -56,3 +56,8 @@ menupopup > menuitem, menupopup > menu {
 :root {
 	--arrowpanel-menuitem-padding: 2px 8px !important;
 }
+
+/* Remove private browsing window label */
+#private-browsing-indicator-with-label > label {
+	display: none;
+}
