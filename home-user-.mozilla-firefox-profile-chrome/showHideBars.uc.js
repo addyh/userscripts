@@ -10,6 +10,7 @@
 	// #nav-bar - Nav/Address Bar
 	// #PersonalToolbar - Bookmarks Bar
 	// #navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
+	// CTRL+SHIFT+B still show/hides the bookmarks bar
 
 	// document.getElementById('titlebar').style.visibility = 'collapse';
 	// document.getElementById('nav-bar').style.visibility = 'collapse';
@@ -56,7 +57,6 @@
 			}
 		}
 
-		// CTRL+SHIFT+B still show/hides the bookmarks bar
 	}
 
 })();
