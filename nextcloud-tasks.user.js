@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Tasks
 // @description  Fix Nextcloud Tasks.
-// @version      1.1.0
+// @version      1.1.1
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -64,6 +64,6 @@
     // Completed tasks:
     //   .task-item--closed
     // Completed tasks header:
-    //   heading.heading--hiddentasks.reactive
+    //   .heading.heading--hiddentasks.reactive
 
 })();
