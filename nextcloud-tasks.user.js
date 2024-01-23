@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         Nextcloud Tasks
 // @description  Fix Nextcloud Tasks.
-// @version      1.0.0
+// @version      1.1.0
 // @author       addyh
 // @copyright    GPLv3
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @run-at       document-end
 // @grant        none
 //
