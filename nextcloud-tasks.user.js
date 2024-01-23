@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Tasks
 // @description  Fix Nextcloud Tasks.
-// @version      1.1.1
+// @version      1.1.2
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -12,24 +12,28 @@
 
 (function() {
 
-    // Close side panel after selecting a Task List on mobile
+    // Close side panel on mobile
     function closeNavSidePanel() {
-        document.querySelector( '.app-navigation-toggle' ).click();
+        if ( document.querySelectorAll('#app-navigation-vue.app-navigation.app-navigation--close').length == 0 ) {
+            if ( window.innerWidth <= 1024 ) {
+                document.querySelector( '.app-navigation-toggle' ).click();
+            }
+         }
     }
     window.addEventListener( 'load', function() {
         setTimeout( function() {
-            if ( window.innerWidth <= 1024 ) {
-                // Apply to all Task lists
-                var task_lists = document.querySelectorAll( 'li[calendar-id] .app-navigation-entry-link' );
-                for ( var i = 0; i < task_lists.length; i++ ) {
-                    task_lists[i].addEventListener( 'click', closeNavSidePanel);
-                }
-                // Apply to all Collections of lists
-                var collections = document.querySelectorAll( 'li[collection-id] .app-navigation-entry-link' );
-                for ( var i = 0; i < collections.length; i++ ) {
-                    collections[i].addEventListener( 'click', closeNavSidePanel);
-                }
+            // Close side panel after clicking a task list
+            var task_lists = document.querySelectorAll( 'li[calendar-id] .app-navigation-entry-link' );
+            for ( var i = 0; i < task_lists.length; i++ ) {
+                task_lists[i].addEventListener( 'click', closeNavSidePanel );
             }
+            // Close side panel after clicking a collection of task lists ("All", "Current", "Completed", etc)
+            var collections = document.querySelectorAll( 'li[collection-id] .app-navigation-entry-link' );
+            for ( var i = 0; i < collections.length; i++ ) {
+                collections[i].addEventListener( 'click', closeNavSidePanel );
+            }
+            // Close side panel when clicking away
+            document.querySelector( 'main#app-content-vue' ).addEventListener( 'click', closeNavSidePanel );
         }, 1000 );
     } );
 
