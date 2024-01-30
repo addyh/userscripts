@@ -6,13 +6,17 @@
 
 (function() {
 
-	document.onkeydown = function(e) {
+	setTimeout(function() {
 
-		if (e.key == 'Delete' && gBrowser.multiSelectedTabsCount) {
-			gBrowser.removeMultiSelectedTabs();
-			return false;
-		}
+		document.onkeydown = function(e) {
 
-	}
+			if (e.key == 'Delete' && gBrowser.multiSelectedTabsCount) {
+				gBrowser.removeMultiSelectedTabs();
+				return false;
+			}
+
+		};
+
+	}, 1000);
 
 })();
