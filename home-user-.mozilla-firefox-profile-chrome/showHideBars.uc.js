@@ -15,44 +15,48 @@
 
 	window.addEventListener('keydown', function (e) {
 
+		var titlebar = document.getElementById('titlebar').style.visibility;
+		var navbar = document.getElementById('nav-bar').style.visibility;
+		var bookmarksbar = document.getElementById('PersonalToolbar').style.visibility;
+
 		// ALT + Z
 		// Show/hide all top bars
 		if (e.key == 'z' && e.altKey) {
-			var t = document.getElementById('titlebar').style.visibility;
-			var n = document.getElementById('nav-bar').style.visibility;
-			var b = document.getElementById('PersonalToolbar').style.visibility;
-			if ( t == 'collapse' || n == 'collapse' || b == 'collapse' ) {
-				document.getElementById('titlebar').style.visibility = 'visible';
-				document.getElementById('nav-bar').style.visibility = 'visible';
-				document.getElementById('PersonalToolbar').style.visibility = 'visible';
+
+			if ( titlebar == 'collapse' || navbar == 'collapse' || bookmarksbar == 'collapse' ) {
+				titlebar = 'visible';
+				navbar = 'visible';
+				bookmarksbar = 'visible';
 			} else {
-				document.getElementById('titlebar').style.visibility = 'collapse';
-				document.getElementById('nav-bar').style.visibility = 'collapse';
-				document.getElementById('PersonalToolbar').style.visibility = 'collapse';
+				titlebar = 'collapse';
+				navbar = 'collapse';
+				bookmarksbar = 'collapse';
 			}
 		}
 
 		// ALT + X
 		// Show/hide the title bar (tabs bar)
 		if (e.key == 'x' && e.altKey) {
-			var t = document.getElementById('titlebar').style.visibility;
-			if ( t == 'collapse' ) {
-				document.getElementById('titlebar').style.visibility = 'visible';
+			if ( titlebar == 'collapse' ) {
+				titlebar = 'visible';
 			} else {
-				document.getElementById('titlebar').style.visibility = 'collapse';
+				titlebar = 'collapse';
 			}
 		}
 
 		// ALT + A
 		// Show/hide the nav bar (address bar)
 		if (e.key == 'a' && e.altKey) {
-			var n = document.getElementById('nav-bar').style.visibility;
-			if ( n == 'collapse' ) {
-				document.getElementById('nav-bar').style.visibility = 'visible';
+			if ( navbar == 'collapse' ) {
+				navbar = 'visible';
 			} else {
-				document.getElementById('nav-bar').style.visibility = 'collapse';
+				navbar = 'collapse';
 			}
 		}
+
+		document.getElementById('titlebar').style.visibility = titlebar;
+		document.getElementById('nav-bar').style.visibility = navbar;
+		document.getElementById('PersonalToolbar').style.visibility = bookmarksbar;
 
 	});
 
