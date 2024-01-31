@@ -22,7 +22,6 @@
 		// ALT + Z
 		// Show/hide all top bars
 		if (e.key == 'z' && e.altKey) {
-
 			if ( titlebar == 'collapse' || navbar == 'collapse' || bookmarksbar == 'collapse' ) {
 				titlebar = 'visible';
 				navbar = 'visible';
