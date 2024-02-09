@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.8
+// @version      1.2.9
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -15,7 +15,7 @@
 (function() {
     window.addEventListener( 'load', function() {
 
-        // Close side panel on mobile
+        // Close left side panel on mobile
         function closeNavSidePanel() {
             if ( document.querySelectorAll( '#app-navigation-vue.app-navigation.app-navigation--close' ).length == 0 ) {
                 if ( window.innerWidth <= 1024 ) {
@@ -23,7 +23,7 @@
                 }
             }
         }
-        // Close side panel when clicking away
+        // Close left side panel when clicking away
         if ( document.querySelector( 'main#app-content-vue' ) ) {
             document.querySelector( 'main#app-content-vue' ).addEventListener( 'click', closeNavSidePanel );
         }
@@ -37,7 +37,7 @@
             // Add css to page
             var style = document.createElement('style');
             style.innerHTML = `
-                /* Re-order Task Sidebar Title Text and Buttons */
+                /* Re-order Task Title and Buttons in Right Sidebar */
                 .app-sidebar-header__desc {
                     padding-right: 15px !important;
                     padding-top: 65px !important;
@@ -58,12 +58,12 @@
                     text-overflow: unset !important;
                 }
 
-                /* Show Full Note Title in Sidebar */
+                /* Show Full Task Title in Right Sidebar */
                 h2.app-sidebar-header__maintitle {
                     white-space:normal !important;
                 }
 
-                /* Show Task Notes at all times */
+                /* Show Task Notes at all times in Right Sidebar */
                 #tab-app-sidebar-tab-details {
                     display: block;
                     width: 100%;
@@ -101,12 +101,12 @@
             document.head.append(style);
 
             setTimeout( function() {
-                // Close side panel after clicking a task list
+                // Close left side panel after clicking a task list
                 var task_lists = document.querySelectorAll( 'li[calendar-id] .app-navigation-entry-link' );
                 for ( var i = 0; i < task_lists.length; i++ ) {
                     task_lists[i].addEventListener( 'click', closeNavSidePanel );
                 }
-                // Close side panel after clicking a collection of task lists ("All", "Current", "Completed", etc)
+                // Close left side panel after clicking a collection of task lists ("All", "Current", "Completed", etc)
                 var collections = document.querySelectorAll( 'li[collection-id] .app-navigation-entry-link' );
                 for ( var i = 0; i < collections.length; i++ ) {
                     collections[i].addEventListener( 'click', closeNavSidePanel );
@@ -150,7 +150,7 @@
         else if ( document.querySelector( '.app-notes' ) || document.querySelector( '.app-files' ) ) {
 
             setTimeout( function() {
-                // Close side panel after clicking a category
+                // Close left side panel after clicking a category
                 var categories = document.querySelectorAll( 'ul.app-navigation__list .app-navigation-entry-link' );
                 for ( var i = 0; i < categories.length; i++ ) {
                     categories[i].addEventListener( 'click', closeNavSidePanel );
