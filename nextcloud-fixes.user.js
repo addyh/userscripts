@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.3
+// @version      1.2.4
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -60,11 +60,13 @@
                 }
                 #tab-app-sidebar-tab-notes .note__editor > textarea {
                     border: 1px solid var(--color-primary-element);
-                    padding: 15px
+                    padding: 15px;
+                    margin-left: 0;
                 }
                 #tab-app-sidebar-tab-notes #note__viewer {
                     padding: 15px 15px 35px 15px;
                     /* padding: 15px 15px 60px 15px; ---- Larger Text Area */
+                    margin-left: 0;
                 }
                 .app-tasks .app-sidebar-tabs__nav {
                     display: none;
