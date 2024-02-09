@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.6
+// @version      1.2.7
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -37,10 +37,32 @@
             // Add css to page
             var style = document.createElement('style');
             style.innerHTML = `
+                /* Re-order Task Sidebar Title Text and Buttons */
+                .app-sidebar-header__desc {
+                    padding-right: 15px !important;
+                    padding-top: 60px !important;
+                    padding-left: 15px !important;
+                }
+                .app-sidebar-header__tertiary-actions {
+                    position: absolute;
+                    top: 10px;
+                    left: 5px;
+                }
+                p.app-sidebar-header__subtitle {
+                    position: absolute;
+                    top: 20px;
+                    left: 50px;
+                    overflow: visible;
+                    width: calc(100% - 145px) !important;
+                    white-space: unset !important;
+                    text-overflow: unset !important;
+                }
+
                 /* Show Full Note Title in Sidebar */
                 h2.app-sidebar-header__maintitle {
                     white-space:normal !important;
                 }
+
                 /* Show Task Notes at all times */
                 #tab-app-sidebar-tab-details {
                     display: block;
