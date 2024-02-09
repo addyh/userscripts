@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.7
+// @version      1.2.8
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -40,7 +40,7 @@
                 /* Re-order Task Sidebar Title Text and Buttons */
                 .app-sidebar-header__desc {
                     padding-right: 15px !important;
-                    padding-top: 60px !important;
+                    padding-top: 65px !important;
                     padding-left: 15px !important;
                 }
                 .app-sidebar-header__tertiary-actions {
