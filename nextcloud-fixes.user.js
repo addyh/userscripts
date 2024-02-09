@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.4
+// @version      1.2.5
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -88,12 +88,6 @@
             }, 1000 );
 
             function mutation_loop() {
-
-                // Update Task Notes Height
-                // setTimeout( function() {
-                //     $('#tab-app-sidebar-tab-details').css( 'margin-top', $('.note__editor').height() - 50 );
-                // }, 100 );
-
                 // Remove "Delete all completed tasks" button
                 var e = document.querySelector( 'div.loadmore.reactive > button > span.button-vue__wrapper > span.button-vue__icon > span.material-design-icon.delete-icon' );
                 if (
