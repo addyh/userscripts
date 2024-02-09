@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.2
+// @version      1.2.3
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -44,20 +44,29 @@
                     min-height: unset;
                     height: unset;
                     overflow: visible;
-                    /* margin-top: 30px; */
-                    /* position: absolute; */
                 }
-                /*
-                #tab-app-sidebar-tab-details .property__item:first-child {
-                    border-top: 1px solid var(--color-border);
-                }
-                */
                 #tab-app-sidebar-tab-notes {
                     display: block;
                     min-height: unset;
                     height: unset;
                 }
-                .app-sidebar-tabs__nav {
+                #tab-app-sidebar-tab-notes > .property__item {
+                    min-height: unset;
+                    padding: 0;
+                }
+                #tab-app-sidebar-tab-notes .note__editor > pre {
+                    padding-bottom: 25px !important;
+                    /* padding-bottom: 50px !important; ---- Larger Text Area */
+                }
+                #tab-app-sidebar-tab-notes .note__editor > textarea {
+                    border: 1px solid var(--color-primary-element);
+                    padding: 15px
+                }
+                #tab-app-sidebar-tab-notes #note__viewer {
+                    padding: 15px 15px 35px 15px;
+                    /* padding: 15px 15px 60px 15px; ---- Larger Text Area */
+                }
+                .app-tasks .app-sidebar-tabs__nav {
                     display: none;
                 }
             `;
