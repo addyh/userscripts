@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.1
+// @version      1.2.2
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -34,6 +34,35 @@
         // Nextcloud Tasks
         if ( document.querySelector( '.app-tasks' ) ) {
 
+            // Add css to page
+            var style = document.createElement('style');
+            style.innerHTML = `
+                /* Show Task Notes at all times */
+                #tab-app-sidebar-tab-details {
+                    display: block;
+                    width: 100%;
+                    min-height: unset;
+                    height: unset;
+                    overflow: visible;
+                    /* margin-top: 30px; */
+                    /* position: absolute; */
+                }
+                /*
+                #tab-app-sidebar-tab-details .property__item:first-child {
+                    border-top: 1px solid var(--color-border);
+                }
+                */
+                #tab-app-sidebar-tab-notes {
+                    display: block;
+                    min-height: unset;
+                    height: unset;
+                }
+                .app-sidebar-tabs__nav {
+                    display: none;
+                }
+            `;
+            document.head.append(style);
+
             setTimeout( function() {
                 // Close side panel after clicking a task list
                 var task_lists = document.querySelectorAll( 'li[calendar-id] .app-navigation-entry-link' );
@@ -47,8 +76,14 @@
                 }
             }, 1000 );
 
-            // Remove "Delete all completed tasks" button
             function mutation_loop() {
+
+                // Update Task Notes Height
+                // setTimeout( function() {
+                //     $('#tab-app-sidebar-tab-details').css( 'margin-top', $('.note__editor').height() - 50 );
+                // }, 100 );
+
+                // Remove "Delete all completed tasks" button
                 var e = document.querySelector( 'div.loadmore.reactive > button > span.button-vue__wrapper > span.button-vue__icon > span.material-design-icon.delete-icon' );
                 if (
                     e &&
