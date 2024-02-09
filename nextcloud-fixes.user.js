@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.5
+// @version      1.2.6
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -37,6 +37,10 @@
             // Add css to page
             var style = document.createElement('style');
             style.innerHTML = `
+                /* Show Full Note Title in Sidebar */
+                h2.app-sidebar-header__maintitle {
+                    white-space:normal !important;
+                }
                 /* Show Task Notes at all times */
                 #tab-app-sidebar-tab-details {
                     display: block;
