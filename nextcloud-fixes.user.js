@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.9
+// @version      1.2.10
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
