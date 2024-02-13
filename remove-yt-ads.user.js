@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Remove YouTube Ads
 // @description  Removes ads on youtube
-// @version      1.0.5
+// @version      1.0.6
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/remove-yt-ads.user.js
@@ -14,7 +14,7 @@
 // @match        *://*.youtube.com/*
 // ==/UserScript==
 
-function loader_loop(){
+function loader_loop() {
 
     // Search Page
     var ads = [
@@ -26,32 +26,34 @@ function loader_loop(){
         'ytm-promoted-sparkles-text-search-renderer',
         'ytd-clarification-renderer',
         'ytm-clarification-renderer',
+        'ytd-popup-container',
+        'ytm-popup-container',
     ];
-    for (var ad of ads) {
-        var els = document.querySelectorAll(ad);
-        for (var e of els) {
+    for ( var ad of ads ) {
+        var els = document.querySelectorAll( ad );
+        for ( var e of els ) {
             e.style.display = "none";
             e.remove();
         }
     }
 }
 
-let start = window.setInterval(function(){
-    if (document.readyState === "complete") {
-        window.clearInterval(start);
+let start = window.setInterval( function() {
+    if ( document.readyState === "complete" ) {
+        window.clearInterval( start );
         loader_loop();
     }
-}, 10);
+}, 10 );
 
-let mutationObserver = new MutationObserver(function() {
+let mutationObserver = new MutationObserver( function() {
     loader_loop();
-});
+} );
 
-mutationObserver.observe(document.documentElement, {
+mutationObserver.observe( document.documentElement, {
     attributes: true,
     characterData: true,
     childList: true,
     subtree: true,
     attributeOldValue: true,
     characterDataOldValue: true
-});
+} );
