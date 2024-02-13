@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
-// @version      1.0.9.2.008
+// @version      1.0.9.2.009
 // @author       addyh
 // @copyright    2017 Braden Best, 2021-2023 addyh
 // @updateURL    https://github.com/addyh/userscripts/raw/master/video-speed-buttons/video-speed-buttons.user.js
@@ -451,6 +451,7 @@ ytm-related-chip-cloud-renderer {
 }
 
 /* Make padding above video title always the same */
+ytd-watch-metadata #title,
 .slim-video-metadata-header-modern .slim-video-information-content.slim-video-information-empty-badge,
 .slim-video-metadata-header-modern.slim-video-metadata-header-with-standalone-badge .slim-video-information-content {
     padding-top: 13px !important;
