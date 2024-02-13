@@ -94,6 +94,9 @@
                     /* padding: 15px 15px 60px 15px; ---- Larger Text Area */
                     margin-left: 0;
                 }
+                #tab-app-sidebar-tab-notes #note__viewer p {
+                    margin-bottom: 20px;
+                }
                 .app-tasks .app-sidebar-tabs__nav {
                     display: none;
                 }
