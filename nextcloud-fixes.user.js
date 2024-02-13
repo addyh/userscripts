@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.10
+// @version      1.2.11
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -10,6 +10,7 @@
 // @match        https://*/apps/tasks/*
 // @match        https://*/apps/notes/*
 // @match        https://*/apps/files/*
+// @match        https://*/apps/calendar/*
 // ==/UserScript==
 
 (function() {
@@ -23,12 +24,16 @@
                 }
             }
         }
+
         // Close left side panel when clicking away
         if ( document.querySelector( 'main#app-content-vue' ) ) {
             document.querySelector( 'main#app-content-vue' ).addEventListener( 'click', closeNavSidePanel );
         }
         if ( document.querySelector( 'div#app-content' ) ) {
             document.querySelector( 'div#app-content' ).addEventListener( 'click', closeNavSidePanel );
+        }
+        if ( document.querySelector( 'header#header' ) ) {
+            document.querySelector( 'header#header' ).addEventListener( 'click', closeNavSidePanel );
         }
 
         // Nextcloud Tasks
