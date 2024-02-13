@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Remove YouTube Ads
 // @description  Removes ads on youtube
-// @version      1.0.4
+// @version      1.0.5
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/remove-yt-ads.user.js
@@ -19,9 +19,13 @@ function loader_loop(){
     // Search Page
     var ads = [
         'ytd-display-ad-renderer',
+        'ytm-display-ad-renderer',
         'ytd-promoted-sparkles-web-renderer',
         'ytm-promoted-sparkles-web-renderer',
         'ytd-promoted-sparkles-text-search-renderer',
+        'ytm-promoted-sparkles-text-search-renderer',
+        'ytd-clarification-renderer',
+        'ytm-clarification-renderer',
     ];
     for (var ad of ads) {
         var els = document.querySelectorAll(ad);
