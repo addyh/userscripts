@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.5
+// @version      1.3.6
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -150,6 +150,21 @@
               ALL - Header Navbar
             ========================
             */
+
+            #notifications .header-menu__content {
+                max-width: calc(100vw - 32px) ;
+            }
+
+            /* Fix Unified Search Position */
+            #unified-search {
+                padding: 0;
+                height: 100%;
+            }
+
+            /* Remove Unified Search Header */
+            #unified-search .modal-header {
+                display: none !important;
+            }
 
             /* Header Navbar - Make Extended Menu Dots White */
             nav.app-menu .app-menu-more.action-item > .v-popper > button.action-item__menutoggle {
