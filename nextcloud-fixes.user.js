@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.2.11
+// @version      1.3.0
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -11,6 +11,8 @@
 // @match        https://*/apps/notes/*
 // @match        https://*/apps/files/*
 // @match        https://*/apps/calendar/*
+// @match        https://*/apps/contacts/*
+// @match        https://*/apps/dashboard/*
 // ==/UserScript==
 
 (function() {
@@ -36,10 +38,84 @@
             document.querySelector( 'header#header' ).addEventListener( 'click', closeNavSidePanel );
         }
 
-        // Nextcloud Tasks
-        if ( document.querySelector( '.app-tasks' ) ) {
+        // Add css to all pages
+        var style = document.createElement('style');
+        style.innerHTML = `
+            /* Header Navbar - Remove Current Page Icon Underline */
+            nav.app-menu ul.app-menu-main li.app-menu-entry.app-menu-entry__active::before {
+                display: none;
+            }
 
-            // Add css to page
+            /* Header Navbar - Remove Search Contacts Icon */
+            .header-right #contactsmenu.header-menu.contactsmenu {
+                display: none;
+            }
+
+            /* Heaer Navbar - Remove Dashboard Icon */
+            nav.app-menu ul.app-menu-main li.app-menu-entry[data-app-id="dashboard"] {
+                display: none;
+            }
+
+            /* Header Navbar - Always Show Icon Labels Text */
+            nav.app-menu ul.app-menu-main {
+                margin-top: 0;
+            }
+            nav.app-menu ul.app-menu-main li.app-menu-entry {
+                width: 60px;
+                display: block;
+            }
+            nav.app-menu ul.app-menu-main li.app-menu-entry a {
+                white-space: normal;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            nav.app-menu ul.app-menu-main li.app-menu-entry img {
+                margin-top: 5px !important;
+                padding: 0;
+            }
+            nav.app-menu ul.app-menu-main li.app-menu-entry .app-menu-entry--label {
+                position: unset;
+                left: unset;
+                top: unset;
+                transform: none;
+                line-height: 1;
+                text-overflow: inherit !important;
+                overflow: visible !important;
+                opacity: 1 !important;
+            }
+        `;
+        document.head.append(style);
+
+        // Nextcloud Calendar
+        if ( document.querySelector( '.app-calendar' ) ) {
+
+            // Add css to calendar page
+            var style = document.createElement('style');
+            style.innerHTML = `
+                /* Hide Event Times */
+                .fc-event .fc-event-time {
+                    display: none;
+                }
+                .fc-event .fc-event-title {
+                    text-overflow: inherit;
+                    overflow: visible;
+                    white-space: normal;
+                    line-height: 1.4;
+                }
+                .fc-event .fc-daygrid-event-dot {
+                    align-self: flex-start;
+                    margin-top: 5px;
+                    margin-right: 7px;
+                }
+            `;
+            document.head.append(style);
+        }
+
+        // Nextcloud Tasks
+        else if ( document.querySelector( '.app-tasks' ) ) {
+
+            // Add css to tasks page
             var style = document.createElement('style');
             style.innerHTML = `
                 /* Re-order Task Title and Buttons in Right Sidebar */
