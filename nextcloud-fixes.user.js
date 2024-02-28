@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.0
+// @version      1.3.1
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -94,6 +94,14 @@
             var style = document.createElement('style');
             style.innerHTML = `
                 /* Hide Event Times */
+                .fc-event {
+                    flex-direction: column;
+                }
+                .fc-event .fc-daygrid-event-dot {
+                    margin-bottom: 2px;
+                    width: 100%;
+                    border-width: 1px;
+                }
                 .fc-event .fc-event-time {
                     display: none;
                 }
@@ -102,11 +110,6 @@
                     overflow: visible;
                     white-space: normal;
                     line-height: 1.4;
-                }
-                .fc-event .fc-daygrid-event-dot {
-                    align-self: flex-start;
-                    margin-top: 5px;
-                    margin-right: 7px;
                 }
             `;
             document.head.append(style);
