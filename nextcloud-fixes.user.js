@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.2
+// @version      1.3.3
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -102,16 +102,19 @@
                     width: 100%;
                     border-width: 1px;
                 }
-                /*
                 .fc-event .fc-event-time {
-                    display: none;
+                    /* display: none; */
+                    font-size: 12px;
+                    line-height: 2;
                 }
-                */
                 .fc-event .fc-event-title {
                     text-overflow: inherit;
                     overflow: visible;
                     white-space: normal;
+                    word-wrap: break-word;
                     line-height: 1.4;
+                    width: 100%;
+                    font-size: 11px;
                 }
             `;
             document.head.append(style);
