@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.6
+// @version      1.3.7
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -73,6 +73,10 @@
                 .app-calendar .fc-event .fc-event-title {
                     font-size: 11px;
                 }
+            }
+            /* Add spacing below All-Day tasks */
+            .fc-daygrid-event-harness {
+                margin-bottom: 1px;
             }
 
             /*
