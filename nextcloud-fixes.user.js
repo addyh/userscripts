@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.7
+// @version      1.3.8
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -109,6 +109,19 @@
             /* Show Full Task Title in Right Sidebar */
             .app-tasks h2.app-sidebar-header__maintitle {
                 white-space:normal !important;
+            }
+
+            /* Show Full Task Title in Right Sidebar in Edit Mode */
+            .app-sidebar-header__maintitle-form > button {
+                width: 100% !important;
+                margin: 5px auto !important;
+                padding: 12px;
+            }
+            .app-sidebar-header__maintitle-form > button > span.button-vue__wrapper {
+                display: none;
+            }
+            .app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input {
+                display: none !important;
             }
 
             /* Show Task Notes at all times in Right Sidebar */
@@ -224,6 +237,8 @@
         // Nextcloud Tasks
         if ( document.querySelector( '.app-tasks' ) ) {
 
+            var mutation_once_done = false;
+
             setTimeout( function() {
                 // Close left side panel after clicking a task list
                 var task_lists = document.querySelectorAll( 'li[calendar-id] .app-navigation-entry-link' );
@@ -237,6 +252,46 @@
                 }
             }, 1000 );
 
+            function mutation_once() {
+                // Show Full Task Title in Right Sidebar in Edit Mode
+                if ( $("h2.app-sidebar-header__maintitle").length ) {
+                    $("h2.app-sidebar-header__maintitle").on("click", function () {
+                        setTimeout(function() {
+                            $(".app-sidebar-header__maintitle-form").css("display", "block");
+                            $(".app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input").each(function () {
+                                var $txtarea = $("<textarea />");
+                                var $input = $(this);
+                                var $button = $input.parent().children("button");
+                                $txtarea.attr("class", "app-sidebar-header__maintitle-input");
+                                $txtarea.attr("rows", 8);
+                                $txtarea.attr("cols", 60);
+                                $txtarea.css("width", "100%");
+                                $txtarea.css("font-size", "20px");
+                                $txtarea.css("font-weight", "bold");
+                                $txtarea.css("line-height", "30px");
+                                $txtarea.css("padding", "0 5px");
+                                $txtarea.val(this.value);
+                                $input.parent().prepend($txtarea);
+                                $button.css("margin", "0 auto");
+                                $button.attr("class", "button");
+                                $button.prepend('<span>Save</span>');
+                                $input.css("display", "none");
+                                $txtarea.focus();
+                                $txtarea.on("input", function(e) {
+                                    $input.val(this.value);
+                                    $input[0].dispatchEvent(new Event("input", { bubbles: true }));
+                                });
+                                $txtarea.on("keyup", function(e) {
+                                    if ( e.code == "NumpadEnter" || e.code == "Enter" ) {
+                                        $("body").click();
+                                    }
+                                });
+                            });
+                        }, 1);
+                    });
+                    mutation_once_done = true;
+                }
+            }
             function mutation_loop() {
                 // Remove "Delete all completed tasks" button
                 var e = document.querySelector( 'div.loadmore.reactive > button > span.button-vue__wrapper > span.button-vue__icon > span.material-design-icon.delete-icon' );
@@ -252,6 +307,9 @@
             }
             let mutationObserver = new MutationObserver( function() {
                 mutation_loop();
+                if ( ! mutation_once_done ) {
+                    mutation_once();
+                }
             } );
             mutationObserver.observe( document.documentElement, {
                 attributes: true,
