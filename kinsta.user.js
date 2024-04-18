@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kinsta
 // @description  MyKinsta Fixes
-// @version      1.0.0
+// @version      1.0.1
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/kinsta.user.js
@@ -19,7 +19,12 @@
 
         function mutation_loop() {
             var str = document.title.substring( 0, document.title.length - 11 ).replace( /\./g, '' );
-            var style = document.createElement('style');
+            var style = document.getElementById('userscript-kinsta-fix-dropdown-background');
+            if ( !style ) {
+                style = document.createElement('style');
+                style.id = "userscript-kinsta-fix-dropdown-background";
+                document.head.append(style);
+            }
             style.innerHTML = `
                 div[name="`+str+`"] {
                   background-color: #333;
