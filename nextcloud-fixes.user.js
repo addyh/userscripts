@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.9
+// @version      1.3.10
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -41,6 +41,24 @@
         // Add css to nextcloud pages
         var style = document.createElement('style');
         style.innerHTML = `
+            /*
+            ========================
+                    NOTES
+            ========================
+            */
+
+            /* Makes Notes full width */
+            .app-notes #note-container {
+                padding: 0;
+            }
+            .app-notes #note-container > .note-editor {
+                max-width: 100%;
+            }
+            .app-notes #note-container > .note-editor .CodeMirror-line {
+                font-family: "Hack Nerd Font Mono", monospace;
+                font-size: 10pt;
+            }
+
             /*
             ========================
                     CALENDAR
