@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
-// @version      1.0.9.2.009
+// @version      1.0.9.2.2024.5.15.152155
 // @author       addyh
-// @copyright    2017 Braden Best, 2021-2023 addyh
+// @copyright    2017 Braden Best, 2021-2024 addyh
 // @updateURL    https://github.com/addyh/userscripts/raw/master/video-speed-buttons/video-speed-buttons.user.js
 // @downloadURL  https://github.com/addyh/userscripts/raw/master/video-speed-buttons/video-speed-buttons.user.js
 // @supportURL   https://github.com/addyh/userscripts/issues
@@ -12,9 +12,11 @@
 // @grant        none
 //
 // @match        *://*.youtube.com/*
-// @match        *://*.vimeo.com/*
 // @match        *://*.yewtu.be/*
 // ==/UserScript==
+
+// Need to fix:
+// @match        *://*.vimeo.com/*
 
 // Original Source:
 // https://greasyfork.org/en/scripts/30506-video-speed-buttons
@@ -32,7 +34,7 @@ function video_speed_buttons(anchor, video_el) {
 
     let video_playback_speed = getCookie("video_playback_speed");
     if (!video_playback_speed) {
-        video_playback_speed = 3;
+        video_playback_speed = 2;
     }
 
     const COLOR_SELECTED = "#FF5500",
