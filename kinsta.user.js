@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kinsta
 // @description  MyKinsta Fixes
-// @version      2024.5.15.152056
+// @version      2024.5.15.153324
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/kinsta.user.js
@@ -297,11 +297,10 @@
                 var last_site_element = null;
                 for ( var site_element of site_elements ) {
                     if ( last_site_element ) {
-                    var site_text = site_element.innerText.toLowerCase();
+                        var site_text = site_element.innerText.toLowerCase();
                         var last_site_text = last_site_element.innerText.toLowerCase();
-
                         if ( last_site_text > site_text ) {
-                        site_element.parentElement.insertBefore(site_element, last_site_element);
+                            site_element.parentElement.insertBefore(site_element, last_site_element);
                         }
                     }
                     last_site_element = site_element;
