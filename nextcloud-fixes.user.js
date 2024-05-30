@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      1.3.10
+// @version      2024.5.30.100408
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -93,7 +93,7 @@
                 }
             }
             /* Add spacing below All-Day tasks */
-            .fc-daygrid-event-harness {
+            .app-calendar .fc-daygrid-event-harness {
                 margin-bottom: 1px;
             }
 
@@ -130,15 +130,15 @@
             }
 
             /* Show Full Task Title in Right Sidebar in Edit Mode */
-            .app-sidebar-header__maintitle-form > button {
+            .app-tasks .app-sidebar-header__maintitle-form > button {
                 width: 100% !important;
                 margin: 5px auto !important;
                 padding: 12px;
             }
-            .app-sidebar-header__maintitle-form > button > span.button-vue__wrapper {
+            .app-tasks .app-sidebar-header__maintitle-form > button > span.button-vue__wrapper {
                 display: none;
             }
-            .app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input {
+            .app-tasks .app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input {
                 display: none !important;
             }
 
