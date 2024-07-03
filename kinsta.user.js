@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kinsta
 // @description  MyKinsta Fixes
-// @version      2024.7.3.160423
+// @version      2024.7.3.161805
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/kinsta.user.js
@@ -46,7 +46,7 @@ function save_kinsta_sites() {
 }
 
 function update_kinsta_sites() {
-    if ( window.KINSTA_API_KEY ) {
+    if ( window.KINSTA_API_KEY && window.KINSTA_COMPANY_ID ) {
         const query = new URLSearchParams({
             company: window.KINSTA_COMPANY_ID
         }).toString();
@@ -65,6 +65,15 @@ function update_kinsta_sites() {
         .catch( error => {
             console.error( 'Error: ', error );
         });
+    } else {
+        if ( ! window.KINSTA_API_KEY ) {
+            window.KINSTA_API_KEY = prompt('Enter Kinsta API Key');
+        }
+        if ( ! window.KINSTA_COMPANY_ID ) {
+            window.KINSTA_COMPANY_ID = prompt('Enter Kinsta Company ID');
+        }
+        localStorage.setItem( 'KINSTA_API_KEY', window.KINSTA_API_KEY );
+        localStorage.setItem( 'KINSTA_COMPANY_ID', window.KINSTA_COMPANY_ID );
     }
 }
 
@@ -280,13 +289,13 @@ function rand_num( min, max ) {
                 document.querySelector('[cmdk-group][data-value="Recent"] > [cmdk-group-heading]').innerText = 'All WordPress Sites';
                 let site_elements = document.querySelectorAll('[cmdk-group][data-value="Recent"] [cmdk-group-items] > div');
                 if ( site_elements && site_elements.length ) {
-                    let new_element = site_elements[0].cloneNode(true);
-                    let parentElement = site_elements[0].parentElement;
-                    let first_element_id = 'the_first_element_' + rand_num( 9999, 99999 );
-                    new_element.id = first_element_id;
-                    parentElement.innerHTML = '';
-                    parentElement.appendChild( new_element );
                     if ( window.mySites && window.mySites.length ) {
+                        let new_element = site_elements[0].cloneNode(true);
+                        let parentElement = site_elements[0].parentElement;
+                        let first_element_id = 'the_first_element_' + rand_num( 9999, 99999 );
+                        new_element.id = first_element_id;
+                        parentElement.innerHTML = '';
+                        parentElement.appendChild( new_element );
                         for ( let site of window.mySites ) {
                             for ( let env of site.environments ) {
                                 new_element = site_elements[0].cloneNode(true);
