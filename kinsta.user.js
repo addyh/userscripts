@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kinsta
 // @description  MyKinsta Fixes
-// @version      2024.7.3.161805
+// @version      2024.7.8.155402
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/kinsta.user.js
@@ -186,6 +186,7 @@ function rand_num( min, max ) {
 
                 /* Align staging sites to the right and non-staging sites to the left*/
                 [cmdk-group][data-value="Recent"] [cmdk-item],
+                [cmdk-group][data-value="All WordPress sites"] [cmdk-item],
                 [cmdk-group][data-value="WordPress sites"] [cmdk-item] {
                     width: 50%;
                 }
