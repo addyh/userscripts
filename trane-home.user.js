@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trane Home
 // @description  Fixes login page
-// @version      1.0.2
+// @version      1.0.3
 // @author       addyh
 // @copyright    GPLv3
 // @updateURL    https://github.com/addyh/userscripts/raw/master/trane-home.user.js
@@ -13,7 +13,6 @@
 //
 // @match        https://*.tranehome.com/login
 // ==/UserScript==
-
 
 (function() {
 
