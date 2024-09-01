@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.5.30.100408
+// @version      2024.9.1.115451
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -125,20 +125,20 @@
             }
 
             /* Show Full Task Title in Right Sidebar */
-            .app-tasks h2.app-sidebar-header__maintitle {
+            .app-tasks h2.app-sidebar-header__mainname {
                 white-space:normal !important;
             }
 
             /* Show Full Task Title in Right Sidebar in Edit Mode */
-            .app-tasks .app-sidebar-header__maintitle-form > button {
+            .app-tasks .app-sidebar-header__mainname-form > button {
                 width: 100% !important;
                 margin: 5px auto !important;
                 padding: 12px;
             }
-            .app-tasks .app-sidebar-header__maintitle-form > button > span.button-vue__wrapper {
+            .app-tasks .app-sidebar-header__mainname-form > button > span.button-vue__wrapper {
                 display: none;
             }
-            .app-tasks .app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input {
+            .app-tasks .app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input {
                 display: none !important;
             }
 
@@ -178,6 +178,9 @@
             }
             .app-tasks .app-sidebar-tabs__nav {
                 display: none;
+            }
+            .app-sidebar-tabs__content {
+                flex-direction: column;
             }
 
             /*
@@ -272,15 +275,15 @@
 
             function mutation_once() {
                 // Show Full Task Title in Right Sidebar in Edit Mode
-                if ( $('h2.app-sidebar-header__maintitle').length ) {
-                    $('h2.app-sidebar-header__maintitle').on('click', function () {
+                if ( $('h2.app-sidebar-header__mainname').length ) {
+                    $('h2.app-sidebar-header__mainname').on('click', function () {
                         setTimeout(function() {
-                            $('.app-sidebar-header__maintitle-form').css('display', 'block');
-                            $('.app-sidebar-header__maintitle-form > input.app-sidebar-header__maintitle-input').each(function () {
+                            $('.app-sidebar-header__mainname-form').css('display', 'block');
+                            $('.app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input').each(function () {
                                 var $txtarea = $('<textarea />');
                                 var $input = $(this);
                                 var $button = $input.parent().children('button');
-                                $txtarea.attr('class', 'app-sidebar-header__maintitle-input');
+                                $txtarea.attr('class', 'app-sidebar-header__mainname-input');
                                 $txtarea.attr('rows', 8);
                                 $txtarea.attr('cols', 60);
                                 $txtarea.css('width', '100%');
