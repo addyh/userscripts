@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.9.1.122029
+// @version      2024.9.1.132825
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -274,46 +274,63 @@
             }, 1000 );
 
             function show_full_task_title_input_box() {
-                $('.app-sidebar-header__mainname-form').css('display', 'block');
-                $('.app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input').each(function () {
-                    var $txtarea = $('<textarea />');
-                    var $input = $(this);
-                    var $button = $input.parent().children('button');
-                    $txtarea.attr('class', 'app-sidebar-header__mainname-input');
-                    $txtarea.attr('rows', 8);
-                    $txtarea.attr('cols', 60);
-                    $txtarea.css('width', '100%');
-                    $txtarea.css('font-size', '20px');
-                    $txtarea.css('font-weight', 'bold');
-                    $txtarea.css('line-height', '30px');
-                    $txtarea.css('padding', '0 5px');
-                    $txtarea.val(this.value);
-                    $input.parent().prepend($txtarea);
-                    $button.css('margin', '0 auto');
-                    $button.attr('class', 'button');
-                    $button.prepend('<span>Save</span>');
-                    $input.css('display', 'none');
-                    $txtarea.focus();
-                    $txtarea.on('input', function(e) {
-                        $input.val(this.value);
-                        $input[0].dispatchEvent(new Event('input', { bubbles: true }));
+                const forms = document.querySelectorAll( '.app-sidebar-header__mainname-form' );
+                const inputs = document.querySelectorAll( '.app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input' );
+                forms.forEach( form => form.style.display = 'block' );
+                inputs.forEach( input => {
+                    const txtarea = document.createElement('textarea');
+                    txtarea.className = 'app-sidebar-header__mainname-input';
+                    txtarea.rows = 8;
+                    txtarea.cols = 60;
+                    txtarea.style.width = '100%';
+                    txtarea.style.fontSize = '20px';
+                    txtarea.style.fontWeight = 'bold';
+                    txtarea.style.lineHeight = '30px';
+                    txtarea.style.padding = '0 5px';
+                    txtarea.value = input.value;
+                    input.parentElement.prepend(txtarea);
+                    const button = input.parentElement.querySelector('button');
+                    if ( button ) {
+                        button.style.margin = '0 auto';
+                        button.className = 'button';
+                        const span = document.createElement('span');
+                        span.textContent = 'Save';
+                        button.prepend( span );
+                    }
+                    input.style.display = 'none';
+                    txtarea.focus();
+                    txtarea.addEventListener( 'input', function() {
+                        input.value = this.value;
+                        input.dispatchEvent( new Event( 'input', { bubbles: true } ) );
                     });
-                    $txtarea.on('keyup', function(e) {
-                        if ( e.code == 'NumpadEnter' || e.code == 'Enter' ) {
-                            $('body').click();
+                    txtarea.addEventListener( 'keyup', function(e) {
+                        if ( e.code === 'NumpadEnter' || e.code === 'Enter' ) {
+                            document.body.click();
                         }
                     });
                 });
             }
-            function element_has_onclick( selector, onclick ) {
-                const element = $( selector );
-                if ( element.length ) {
-                    const events = $._data(element[0], 'events');
-                    if (events && events.click) {
-                        // Loop through all 'click' event handlers
-                        for (let i = 0; i < events.click.length; i++) {
-                            const handler = events.click[i].handler;
-                            if (handler === onclick) {
+            function addEventListenerTrackable( element, event, handler ) {
+                if ( ! element._eventListeners ) {
+                    element._eventListeners = {};
+                }
+                if ( ! element._eventListeners[event] ) {
+                    element._eventListeners[event] = [];
+                }
+                element._eventListeners[event].push( handler );
+                element.addEventListener( event, handler );
+            }
+            function getEventListenersTrackable( element ) {
+                return element._eventListeners || {};
+            }
+            function checkEventListenerTrackable( selector, eventType, handler ) {
+                const element = document.querySelector( selector );
+                if ( element ) {
+                    const events = getEventListenersTrackable( element );
+                    if ( events && events[eventType] ) {
+                        for ( let i = 0; i < events[eventType].length; i++ ) {
+                            const registeredHandler = events[eventType][i];
+                            if ( registeredHandler === handler ) {
                                 return true;
                             }
                         }
@@ -327,13 +344,14 @@
             }
             function mutation_once() {
                 // Show Full Task Title in Right Sidebar in Edit Mode
-                if ( $('h2.app-sidebar-header__mainname').length ) {
-                    $('h2.app-sidebar-header__mainname').on('click', show_full_task_title_input_box );
+                const el = document.querySelector( 'h2.app-sidebar-header__mainname' );
+                if ( el ) {
+                    addEventListenerTrackable( el, 'click', show_full_task_title_input_box );
                     mutation_once_done = true;
                 }
             }
             function mutation_loop() {
-                if ( ! element_has_onclick( 'h2.app-sidebar-header__mainname', show_full_task_title_input_box ) ) {
+                if ( ! checkEventListenerTrackable( 'h2.app-sidebar-header__mainname', 'click', show_full_task_title_input_box ) ) {
                     mutation_once_done = false;
                 }
                 // Remove "Delete all completed tasks" button
