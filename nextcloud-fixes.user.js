@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.9.1.132825
+// @version      2024.9.1.133717
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -328,9 +328,11 @@
                 if ( element ) {
                     const events = getEventListenersTrackable( element );
                     if ( events && events[eventType] ) {
+                        if ( ! handler) {
+                            return true;
+                        }
                         for ( let i = 0; i < events[eventType].length; i++ ) {
-                            const registeredHandler = events[eventType][i];
-                            if ( registeredHandler === handler ) {
+                            if ( events[eventType][i] === handler ) {
                                 return true;
                             }
                         }
