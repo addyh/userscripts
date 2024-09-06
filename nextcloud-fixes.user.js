@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.9.1.133717
+// @version      2024.9.5.220936
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
@@ -20,7 +20,7 @@
 
         // Close left side panel on mobile
         function closeNavSidePanel() {
-            if ( document.querySelectorAll( '#app-navigation-vue.app-navigation.app-navigation--close' ).length == 0 ) {
+            if ( document.querySelectorAll( '.app-navigation.app-navigation--close' ).length == 0 ) {
                 if ( window.innerWidth <= 1024 ) {
                     document.querySelector( '.app-navigation-toggle' ).click();
                 }
