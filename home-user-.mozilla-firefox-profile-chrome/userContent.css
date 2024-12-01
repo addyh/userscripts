@@ -1,8 +1,12 @@
-/*
- * Firefox userstyles customizations
- * ~/.mozilla/firefox/release/chrome/userContent.css
- *
- */
+/**
+ * ==UserContent==
+ * @name            Firefox Webpage Customizations
+ * @version         2024.12.1.112929
+ * @author          addyh
+ * @description     Customizes multiple websites and default webpage CSS.
+ * @location        ~/.mozilla/firefox/release/chrome/userContent.css
+ * ==/UserContent==
+*/
 
 /* Remove Payment Warning on Github */
 @-moz-document domain('github.com') {
@@ -32,11 +36,27 @@
 	{
 		display: none !important;
 	}
-	
 }
 
 /* Consent Banners / GDPR Popups */
+#ccpaCookieBanner,
+.wd-cookies-popup,
+.wcc-consent-container,
 .js-consent-banner,
 #onetrust-consent-sdk {
 	display: none;
+}
+
+/* Fix scrolling on geeksforgeeks.org */
+@-moz-document domain('geeksforgeeks.org') {
+	body {
+		height: auto !important;
+	}
+}
+
+/* Amazon.com */
+@-moz-document domain('amazon.com') {
+	#desktop-banner {
+		display: none !important;
+	}
 }

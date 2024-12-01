@@ -1,28 +1,17 @@
-/*
- * Firefox window customizations
- * ~/.mozilla/firefox/release/chrome/userChrome.css
- *
- * Update these settings in about:config for this to work:
- *  - toolkit.legacyUserProfileCustomizations.stylesheets true
- *  - browser.tabs.tabMinWidth 0
- */
-
-/*
-#titlebar - Title/Tabs Bar
-#nav-bar - Nav/Address Bar
-#PersonalToolbar - Bookmarks Bar
-#navigator-toolbox - Nav Bar, Title Bar, and Bookmarks Bar
+/**
+ * ==UserChrome==
+ * @name            Firefox Window Customizations
+ * @version         2024.12.1.112714
+ * @author          addyh
+ * @description     Customizes the Firefox UI, including toolbar, tabs, and menus.
+ * @location        ~/.mozilla/firefox/release/chrome/userChrome.css
+ * @setting         toolkit.legacyUserProfileCustomizations.stylesheets true
+ * @setting         browser.tabs.tabMinWidth 0
+ * @note            Ensure the above about:config settings are updated for this to work.
+ * ==/UserChrome==
 */
 
-/* Remove status bar */
-/* #statuspanel-label {
-	display: none;
-} */
-
-/* Remove Title and Nav Bar and Bookmarks Bar*/
-/* #navigator-toolbox {
-	visibility: collapse;
-} */
+@import "userChrome-Custom.css";
 
 /* Make Infinite Tabs */
 .tabbrowser-tab {
@@ -60,4 +49,9 @@ menupopup > menuitem, menupopup > menu {
 /* Remove private browsing window label */
 #private-browsing-indicator-with-label > label {
 	display: none;
+}
+
+/* Fix inactive title bar color */
+* {
+	--inactive-titlebar-opacity: 1 !important;
 }
