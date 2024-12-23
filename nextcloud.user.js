@@ -1,22 +1,27 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.9.5.220936
+// @version      2024.12.23.175709
 // @author       addyh
 // @copyright    GPLv3
 // @run-at       document-end
 // @grant        none
 //
-// @match        https://*/apps/tasks/*
-// @match        https://*/apps/notes/*
-// @match        https://*/apps/files/*
-// @match        https://*/apps/calendar/*
-// @match        https://*/apps/contacts/*
-// @match        https://*/apps/dashboard/*
+// @match        https://*/apps/*/*
+// @match        https://*/settings/*/*
 // ==/UserScript==
 
+// Tested on Nextcloud 30.0.4
 (function() {
     window.addEventListener( 'load', function() {
+
+        function safeSelector( selector ) {
+            let element = document.querySelector( selector );
+            if ( ! element ) {
+                console.error('@NCFIXES: `' + selector + '` not found.');
+            }
+            return element;
+        }
 
         // Close left side panel on mobile
         function closeNavSidePanel() {
@@ -41,217 +46,203 @@
         // Add css to nextcloud pages
         var style = document.createElement('style');
         style.innerHTML = `
-            /*
-            ========================
-                    NOTES
-            ========================
-            */
+        /*
+        ========================
+                NOTES
+        ========================
+        */
 
-            /* Makes Notes full width */
-            .app-notes #note-container {
-                padding: 0;
-            }
-            .app-notes #note-container > .note-editor {
-                max-width: 100%;
-            }
-            .app-notes #note-container > .note-editor .CodeMirror-line {
-                font-family: "Hack Nerd Font Mono", monospace;
-                font-size: 10pt;
-            }
+        /* Makes Notes full width */
+        .app-notes #note-container {
+            padding: 0;
+        }
+        .app-notes #note-container > .note-editor {
+            max-width: 100%;
+        }
+        .app-notes #note-container > .note-editor .CodeMirror-line {
+            font-family: "Hack Nerd Font Mono", monospace;
+            font-size: 10pt;
+        }
 
-            /*
-            ========================
-                    CALENDAR
-            ========================
-            */
+        /*
+        ========================
+                CALENDAR
+        ========================
+        */
 
-            /* Hide Event Times */
-            .app-calendar .fc-event {
-                flex-direction: column;
-            }
-            .app-calendar .fc-event .fc-daygrid-event-dot {
-                margin-bottom: 2px;
-                width: 100%;
-                border-width: 1px;
-            }
-            .app-calendar .fc-event .fc-event-time {
-                /* display: none; */
-                font-size: 12px;
-                line-height: 2;
-            }
+        /* Hide Event Times */
+        .app-calendar .fc-event {
+            flex-direction: column;
+        }
+        .app-calendar .fc-event .fc-daygrid-event-dot {
+            margin-bottom: 2px;
+            width: 100%;
+            border-width: 1px;
+        }
+        .app-calendar .fc-event .fc-event-time {
+            /* display: none; */
+            font-size: 12px;
+            line-height: 2;
+        }
+        .app-calendar .fc-event .fc-event-title {
+            text-overflow: inherit;
+            overflow: visible;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.4;
+            width: 100%;
+        }
+        @media screen and (max-width: 700px) {
             .app-calendar .fc-event .fc-event-title {
-                text-overflow: inherit;
-                overflow: visible;
-                white-space: normal;
-                word-wrap: break-word;
-                line-height: 1.4;
-                width: 100%;
+                font-size: 11px;
             }
-            @media screen and (max-width: 700px) {
-                .app-calendar .fc-event .fc-event-title {
-                    font-size: 11px;
-                }
-            }
-            /* Add spacing below All-Day tasks */
-            .app-calendar .fc-daygrid-event-harness {
-                margin-bottom: 1px;
-            }
+        }
+        /* Add spacing below All-Day tasks */
+        .app-calendar .fc-daygrid-event-harness {
+            margin-bottom: 1px;
+        }
 
-            /*
-            ========================
-                    TASKS
-            ========================
-            */
+        /*
+        ========================
+                TASKS
+        ========================
+        */
 
-            /* Re-order Task Title and Buttons in Right Sidebar */
-            .app-tasks .app-sidebar-header__desc {
-                padding-right: 15px !important;
-                padding-top: 65px !important;
-                padding-left: 15px !important;
-            }
-            .app-tasks .app-sidebar-header__tertiary-actions {
-                position: absolute;
-                top: 10px;
-                left: 5px;
-            }
-            .app-tasks p.app-sidebar-header__subtitle {
-                position: absolute;
-                top: 20px;
-                left: 50px;
-                overflow: visible;
-                width: calc(100% - 145px) !important;
-                white-space: unset !important;
-                text-overflow: unset !important;
-            }
+        /* Re-order Task Title and Buttons in Right Sidebar */
+        .app-tasks .app-sidebar-header__desc {
+            padding-right: 15px !important;
+            padding-top: 65px !important;
+            padding-left: 15px !important;
+        }
+        .app-tasks .app-sidebar-header__tertiary-actions {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+        }
+        .app-tasks p.app-sidebar-header__subtitle {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            overflow: visible;
+            width: calc(100% - 145px) !important;
+            white-space: unset !important;
+            text-overflow: unset !important;
+        }
 
-            /* Show Full Task Title in Right Sidebar */
-            .app-tasks h2.app-sidebar-header__mainname {
-                white-space:normal !important;
-            }
+        /* Show Full Task Title in Right Sidebar */
+        .app-tasks h2.app-sidebar-header__mainname {
+            white-space:normal !important;
+        }
 
-            /* Show Full Task Title in Right Sidebar in Edit Mode */
-            .app-tasks .app-sidebar-header__mainname-form > button {
-                width: 100% !important;
-                margin: 5px auto !important;
-                padding: 12px;
-            }
-            .app-tasks .app-sidebar-header__mainname-form > button > span.button-vue__wrapper {
-                display: none;
-            }
-            .app-tasks .app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input {
-                display: none !important;
-            }
+        /* Show Full Task Title in Right Sidebar in Edit Mode */
+        .app-tasks .app-sidebar-header__mainname-form > button {
+            width: 100% !important;
+            margin: 5px auto !important;
+            padding: 12px;
+        }
+        .app-tasks .app-sidebar-header__mainname-form > button > span.button-vue__wrapper {
+            display: none;
+        }
+        .app-tasks .app-sidebar-header__mainname-form > input.app-sidebar-header__mainname-input {
+            display: none !important;
+        }
 
-            /* Show Task Notes at all times in Right Sidebar */
-            .app-tasks #tab-app-sidebar-tab-details {
-                display: block;
-                width: 100%;
-                min-height: unset;
-                height: unset;
-                overflow: visible;
-            }
-            .app-tasks #tab-app-sidebar-tab-notes {
-                display: block;
-                min-height: unset;
-                height: unset;
-            }
-            .app-tasks #tab-app-sidebar-tab-notes > .property__item {
-                min-height: unset;
-                padding: 0;
-            }
-            .app-tasks #tab-app-sidebar-tab-notes .note__editor > pre {
-                padding-bottom: 25px !important;
-                /* padding-bottom: 50px !important; ---- Larger Text Area */
-            }
-            .app-tasks #tab-app-sidebar-tab-notes .note__editor > textarea {
-                border: 1px solid var(--color-primary-element);
-                padding: 15px;
-                margin-left: 0;
-            }
-            .app-tasks #tab-app-sidebar-tab-notes #note__viewer {
-                padding: 15px 15px 35px 15px;
-                /* padding: 15px 15px 60px 15px; ---- Larger Text Area */
-                margin-left: 0;
-            }
-            .app-tasks #tab-app-sidebar-tab-notes #note__viewer p {
-                margin-bottom: 20px;
-            }
-            .app-tasks .app-sidebar-tabs__nav {
-                display: none;
-            }
-            .app-sidebar-tabs__content {
-                flex-direction: column;
-            }
+        /* Show Task Notes at all times in Right Sidebar */
+        .app-tasks #tab-app-sidebar-tab-details {
+            display: block;
+            width: 100%;
+            min-height: unset;
+            height: unset;
+            overflow: visible;
+        }
+        .app-tasks #tab-app-sidebar-tab-notes {
+            display: block;
+            min-height: unset;
+            height: unset;
+        }
+        .app-tasks #tab-app-sidebar-tab-notes > .property__item {
+            min-height: unset;
+            padding: 0;
+        }
+        .app-tasks #tab-app-sidebar-tab-notes .note__editor > pre {
+            padding-bottom: 25px !important;
+            /* padding-bottom: 50px !important; ---- Larger Text Area */
+        }
+        .app-tasks #tab-app-sidebar-tab-notes .note__editor > textarea {
+            border: 1px solid var(--color-primary-element);
+            padding: 15px;
+            margin-left: 0;
+        }
+        .app-tasks #tab-app-sidebar-tab-notes #note__viewer {
+            padding: 15px 15px 35px 15px;
+            /* padding: 15px 15px 60px 15px; ---- Larger Text Area */
+            margin-left: 0;
+        }
+        .app-tasks #tab-app-sidebar-tab-notes #note__viewer p {
+            margin-bottom: 20px;
+        }
+        .app-tasks .app-sidebar-tabs__nav {
+            display: none;
+        }
+        .app-sidebar-tabs__content {
+            flex-direction: column;
+        }
 
-            /*
-            ========================
-              ALL - Header Navbar
-            ========================
-            */
+        /*
+        ========================
+          ALL - Header Navbar
+        ========================
+        */
 
-            #notifications .header-menu__content {
-                max-width: calc(100vw - 32px) ;
-            }
+        #notifications .header-menu__content {
+            max-width: calc(100vw - 32px) ;
+        }
 
-            /* Fix Unified Search Position */
-            #unified-search {
-                padding: 0;
-                height: 100%;
-            }
+        /* Fix Unified Search Position */
+        #unified-search {
+            padding: 0;
+            height: 100%;
+        }
 
-            /* Remove Unified Search Header */
-            #unified-search .modal-header {
-                display: none !important;
-            }
+        /* Remove Unified Search Header */
+        #unified-search .modal-header {
+            display: none !important;
+        }
 
-            /* Header Navbar - Make Extended Menu Dots White */
-            nav.app-menu .app-menu-more.action-item > .v-popper > button.action-item__menutoggle {
-                color: white;
-            }
+        /* Header Navbar - Make Extended Menu Dots White */
+        nav.app-menu .app-menu-more.action-item > .v-popper > button.action-item__menutoggle {
+            color: white;
+        }
 
-            /* Header Navbar - Remove Current Page Icon Underline */
-            nav.app-menu ul.app-menu-main li.app-menu-entry.app-menu-entry__active::before {
-                display: none;
-            }
+        /* Header Navbar - Remove Current Page Icon Underline */
+        .app-menu-entry::before {
+            display: none !important;
+        }
 
-            /* Header Navbar - Remove Search Contacts Icon */
-            .header-right #contactsmenu.header-menu.contactsmenu {
-                display: none;
-            }
+        /* Header Navbar - Remove Search Contacts Icon */
+        .header-right #contactsmenu.header-menu.contactsmenu {
+            display: none;
+        }
 
-            /* Heaer Navbar - Remove Dashboard Icon */
-            nav.app-menu ul.app-menu-main li.app-menu-entry[data-app-id="dashboard"] {
-                display: none;
-            }
+        /* Heaer Navbar - Remove Dashboard Icon */
+        nav.app-menu ul.app-menu__list li:first-child {
+            display: none !important;
+        }
 
-            /* Header Navbar - Always Show Icon Labels Text */
-            nav.app-menu ul.app-menu-main {
-                margin-top: 0;
-            }
-            nav.app-menu ul.app-menu-main li.app-menu-entry {
-                width: 60px;
-                display: block;
-            }
-            nav.app-menu ul.app-menu-main li.app-menu-entry a {
-                white-space: normal;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            nav.app-menu ul.app-menu-main li.app-menu-entry img {
-                margin-top: 5px !important;
-                padding: 0;
-            }
-            nav.app-menu ul.app-menu-main li.app-menu-entry .app-menu-entry--label {
-                position: unset;
-                left: unset;
-                top: unset;
-                transform: none;
-                line-height: 1;
-                text-overflow: inherit !important;
-                overflow: visible !important;
-                opacity: 1 !important;
-            }
+        /* Header Navbar - Always Show Icon Labels Text */
+        nav.app-menu ul.app-menu__list li.app-menu-entry {
+            width: 60px;
+            display: block;
+        }
+        .app-menu-entry__label {
+            max-width: 100% !important;
+            overflow: visible !important;
+            opacity: 1 !important;
+        }
+        .app-menu-icon,
+        .app-menu-entry__icon {
+            margin-block-end: 1lh !important;
+        }
         `;
         document.head.append(style);
 
@@ -397,7 +388,7 @@
 
             setTimeout( function() {
                 // Close left side panel after clicking a category
-                var categories = document.querySelectorAll( 'ul.app-navigation__list .app-navigation-entry-link' );
+                var categories = document.querySelectorAll( 'ul.app-navigation-list .app-navigation-entry-link' );
                 for ( var i = 0; i < categories.length; i++ ) {
                     categories[i].addEventListener( 'click', closeNavSidePanel );
                 }
