@@ -1,9 +1,13 @@
 // ==UserScript==
 // @name         Nextcloud Fixes
 // @description  Fix Nextcloud Apps.
-// @version      2024.12.23.175709
+// @version      2024.12.23.183203
 // @author       addyh
 // @copyright    GPLv3
+// @updateURL    https://github.com/addyh/userscripts/raw/master/nextcloud.user.js
+// @downloadURL  https://github.com/addyh/userscripts/raw/master/nextcloud.user.js
+// @supportURL   https://github.com/addyh/userscripts/issues
+// @homepage     https://github.com/addyh/userscripts
 // @run-at       document-end
 // @grant        none
 //
