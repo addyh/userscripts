@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name         Capital One
 // @description  Capital One Fixes
-// @version      2024.7.16.154458
+// @version      2025.1.18.134331
 // @author       addyh
 // @copyright    GPLv3
+// @icon         https://capitalone.com/favicon.ico
 // @updateURL    https://github.com/addyh/userscripts/raw/master/capital-one.user.js
 // @downloadURL  https://github.com/addyh/userscripts/raw/master/capital-one.user.js
 // @supportURL   https://github.com/addyh/userscripts/issues
 // @homepage     https://github.com/addyh/userscripts
-// @run-at       document-end
+// @run-at       document-start
 // @grant        none
 //
 // @match        https://*.capitalone.com/*

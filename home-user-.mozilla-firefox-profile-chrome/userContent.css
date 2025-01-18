@@ -1,62 +1,9 @@
 /**
  * ==UserContent==
  * @name            Firefox Webpage Customizations
- * @version         2024.12.1.112929
+ * @version         2025.1.18.134915
  * @author          addyh
  * @description     Customizes multiple websites and default webpage CSS.
  * @location        ~/.mozilla/firefox/release/chrome/userContent.css
  * ==/UserContent==
 */
-
-/* Remove Payment Warning on Github */
-@-moz-document domain('github.com') {
-	header ~ .flash.flash-full.js-notice.flash-warn {
-		display: none;
-	}
-}
-
-/* Clean Up All Stack Overflow Sites */
-@-moz-document
-	domain('stackoverflow.com'),
-	domain('stackexchange.com'),
-	domain('superuser.com'),
-	domain('mathoverflow.com'),
-	domain('serverfault.com'),
-	domain('askubuntu.com'),
-	domain('stackapps.com')
-{
-	.s-popover,                             /* AI powered search popup */
-	.js-dismissable-hero,                   /* Top Banner */
-	#announcement-banner,                   /* Top Banner */
-	.js-zone-container.zone-container-main, /* Ads */
-	#left-sidebar,                          /* Left Sidebar */
-	#sidebar .s-sidebarwidget__yellow,      /* Right Sidebar Yellow Boxes */
-	#hot-network-questions,                 /* Right Sidebar - Hot Network Questions */
-	.js-consent-banner                      /* GDPR Popup */
-	{
-		display: none !important;
-	}
-}
-
-/* Consent Banners / GDPR Popups */
-#ccpaCookieBanner,
-.wd-cookies-popup,
-.wcc-consent-container,
-.js-consent-banner,
-#onetrust-consent-sdk {
-	display: none;
-}
-
-/* Fix scrolling on geeksforgeeks.org */
-@-moz-document domain('geeksforgeeks.org') {
-	body {
-		height: auto !important;
-	}
-}
-
-/* Amazon.com */
-@-moz-document domain('amazon.com') {
-	#desktop-banner {
-		display: none !important;
-	}
-}
