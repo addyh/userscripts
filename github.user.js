@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Github
 // @description  Github Fixes
-// @version      2025.1.18.140544
+// @version      2025.05.21.171655
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=amazon.com

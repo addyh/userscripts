@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kinsta
 // @description  MyKinsta Fixes
-// @version      2025.1.8.130223
+// @version      2025.05.21.171706
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinsta.com

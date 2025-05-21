@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ads
 // @description  Removes YouTube Ads
-// @version      2025.1.18.132857
+// @version      2025.05.21.171731
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com

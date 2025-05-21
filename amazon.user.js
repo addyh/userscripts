@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon
 // @description  Amazon Fixes
-// @version      2025.1.18.134406
+// @version      2025.05.21.171626
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=amazon.com

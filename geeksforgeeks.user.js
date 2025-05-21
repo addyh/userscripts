@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         geeksforgeeks.org
 // @description  Fix scrolling on geeksforgeeks.org
-// @version      2025.1.18.140838
+// @version      2025.05.21.171650
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=geeksforgeeks.org

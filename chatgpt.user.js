@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ChatGPT
 // @description  ChatGPT Fixes
-// @version      2025.1.22.115318
+// @version      2025.05.21.171640
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com

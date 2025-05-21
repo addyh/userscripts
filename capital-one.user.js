@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Capital One
 // @description  Capital One Fixes
-// @version      2025.1.18.134331
+// @version      2025.05.21.171633
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://capitalone.com/favicon.ico

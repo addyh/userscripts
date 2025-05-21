@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stack Overflow Sites
 // @description  Clean Up All Stack Overflow Sites
-// @version      2025.1.18.135819
+// @version      2025.05.21.171717
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=stackoverflow.com
