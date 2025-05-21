@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
-// @version      1.0.9.2.2025.1.18.133520
+// @version      1.0.9.2.2025.05.21.171252
 // @author       addyh
 // @copyright    2017 Braden Best, 2021-2025 addyh
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @updateURL    https://github.com/addyh/userscripts/raw/master/video-speed-buttons/video-speed-buttons.user.js
-// @downloadURL  https://github.com/addyh/userscripts/raw/master/video-speed-buttons/video-speed-buttons.user.js
+// @updateURL    https://github.com/addyh/userscripts/raw/master/video-speed-buttons.user.js
+// @downloadURL  https://github.com/addyh/userscripts/raw/master/video-speed-buttons.user.js
 // @supportURL   https://github.com/addyh/userscripts/issues
-// @homepage     https://github.com/addyh/userscripts/tree/master/video-speed-buttons
+// @homepage     https://github.com/addyh/userscripts
 // @run-at       document-end
 // @grant        none
 //
