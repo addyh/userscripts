@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GDPR Popups
 // @description  Remove GDPR Popups / Consent Banners From All Sites
-// @version      2025.1.18.140359
+// @version      2025.05.21.165758
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gdpr.eu
@@ -23,11 +23,13 @@
 		style = document.createElement('style');
 		style.id = style_id;
 		style.innerHTML = `
+			#credential_picker_container,           /* Sign In With Google popup */
 			#ccpaCookieBanner,
 			.wd-cookies-popup,
 			.wcc-consent-container,
 			.js-consent-banner,
-			#onetrust-consent-sdk
+			#onetrust-consent-sdk,
+			#usercentrics-cmp-ui
 			{
 				display: none;
 			}
