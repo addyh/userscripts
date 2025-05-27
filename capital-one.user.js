@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Capital One
 // @description  Capital One Fixes
-// @version      2025.05.21.171633
+// @version      2025.05.27.102854
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://capitalone.com/favicon.ico
@@ -23,6 +23,8 @@
 		style = document.createElement('style');
 		style.id = style_id;
 		style.innerHTML = `
+			/* Remove front page top ad */
+			.c1-ease-hero-bar,
 			/* Show Longer Card Names on Mobile */
 			.c1-ease-commerce-virtual-cards-manager__mobile-specific {
 				display: none !important;
