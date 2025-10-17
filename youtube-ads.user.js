@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube Ads
 // @description  Removes YouTube Ads
-// @version      2025.05.21.171731
+// @version      2025.10.17.151158
 // @author       addyh
 // @copyright    GPLv3
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
@@ -27,6 +27,10 @@ function loader_loop() {
 		'ytm-promoted-sparkles-text-search-renderer',
 		'ytd-clarification-renderer',
 		'ytm-clarification-renderer',
+
+		// Shorts and Posts
+		'ytd-rich-section-renderer',
+		'ytm-rich-section-renderer',
 
 		// These interfere with the edit comment popup
 		// 'ytd-popup-container',
