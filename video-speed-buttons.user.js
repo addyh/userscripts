@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Speed Buttons
 // @description  Add speed buttons to any HTML5 <video> element. Comes with a loader for YouTube and Vimeo
-// @version      1.0.9.2.2025.05.21.171252
+// @version      1.0.9.2.2025.10.20.123742
 // @author       addyh
 // @copyright    2017 Braden Best, 2021-2025 addyh
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
@@ -48,7 +48,7 @@ function video_speed_buttons(anchor, video_el) {
 	const BUTTON_TEMPLATES = [
 		["25%",	0.25],
 		["50%",	0.5],
-		["Normal", 1],
+		["1.00x", 1],
 		["1.50x",  1.5],
 		["2.00x",  2],
 		["2.25x",  2.25],
